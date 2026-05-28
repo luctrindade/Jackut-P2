@@ -20,6 +20,10 @@ public class Facade {
         return sistema.getAtributoUsuario(login,atributo);
     }
 
+    public void editarPerfil(String id, String atributo, String valor) throws UsuarioNaoCadastradoException{
+        sistema.editarPerfil(id,atributo,valor);
+    }
+
     public String abrirSessao(String login, String senha) throws LoginOuSenhaInvalidoException {
         return sistema.abrirSessao(login, senha);
     }

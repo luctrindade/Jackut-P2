@@ -46,12 +46,20 @@ public class JackutSistema {
         if(usuario == null){
             throw new UsuarioNaoCadastradoException();
         }
+        return usuario.getAtributo(atributo);
+    }
 
-        if (atributo.equals("nome")){
-            return usuario.getNome();
+    public void editarPerfil(String idSessao, String atributo, String valor) throws UsuarioNaoCadastradoException{
+        String login = sessoesAtivas.get(idSessao);
+        if(login == null){
+            throw new UsuarioNaoCadastradoException();
         }
 
-        return "";
+        Usuario usuario = usuarios.get(login);
+        if(usuario == null){
+            throw new UsuarioNaoCadastradoException();
+        }
+        usuario.setAtributo(atributo,valor);
     }
 
     public String abrirSessao(String login, String senha) throws LoginOuSenhaInvalidoException{
