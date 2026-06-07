@@ -31,3 +31,7 @@ bin/
 
 ### JavaDoc ###
 javadoc/
+
+### db ###
+database.xml
+database.dat
