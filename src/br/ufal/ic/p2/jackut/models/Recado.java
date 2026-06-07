@@ -5,11 +5,14 @@ import java.io.Serializable;
 /**
  * Representa uma mensagem de texto (recado) enviada entre usuários no sistema Jackut.
  * <p>
- * Atua como um Objeto de Valor (Value Object), armazenando a origem do envio
- * e o conteúdo da mensagem de forma imutável.
+ * Atua armazenando a origem do envio e o conteúdo da mensagem de forma imutável.
  * </p>
  */
 public class Recado implements Serializable {
+    /**
+     * Identificador único de versão da classe utilizado na serialização.
+     * Garante a compatibilidade estrutural do objeto durante o processo de desserialização.
+     */
     private static final long serialVersionUID = 1L;
     /** O login do usuário que originou o envio do recado. */
     private final String remetente;

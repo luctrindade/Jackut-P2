@@ -19,6 +19,7 @@ public class Facade {
     private final UsuarioController usuarioController = new UsuarioController();
     private final AutenticacaoController autenticacaoController = new AutenticacaoController();
     private final AmizadeController amizadeController = new AmizadeController();
+    /** Repositório central (Singleton) de acesso aos dados em memória. */
     private final JackutRepository repo = JackutRepository.getInstancia();
     private final RecadoController recadoController = new RecadoController();
 
@@ -31,6 +32,11 @@ public class Facade {
         repo.carregarDados();
     }
 
+    /**
+     * Limpa completamente o estado do sistema, deletando todos os usuários
+     * e encerrando todas as sessões ativas. Utilizado principalmente para
+     * a redefinição de estado entre testes.
+     */
     public void zerarSistema(){
         repo.zerarSistema();
     }

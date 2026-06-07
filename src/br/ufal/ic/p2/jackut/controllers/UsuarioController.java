@@ -39,7 +39,7 @@ public class UsuarioController {
      * Recupera o valor de um atributo específico do perfil de um usuário.
      *
      * @param login    O login do usuário cujos dados serão consultados.
-     * @param atributo O nome do atributo desejado (ex: "nome", "cidadeNatal").
+     * @param atributo O nome do atributo desejado.
      * @return Uma {@code String} contendo o valor armazenado no atributo solicitado.
      * @throws UsuarioNaoCadastradoException  Se o login não corresponder a um usuário válido.
      */
@@ -55,7 +55,7 @@ public class UsuarioController {
      * Atualiza ou adiciona um novo atributo ao perfil do usuário atualmente logado.
      *
      * @param idSessao O identificador único da sessão do usuário que está editando o perfil.
-     * @param atributo O nome do atributo a ser modificado ou criado (ex: "estadoCivil").
+     * @param atributo O nome do atributo a ser modificado ou criado.
      * @param valor    O novo valor que será atribuído a este campo no perfil.
      * @throws UsuarioNaoCadastradoException Se a sessão for inválida ou o usuário não existir.
      */

@@ -17,7 +17,12 @@ import java.util.*;
  * </p>
  */
 public class Usuario implements Serializable {
+    /**
+     * Identificador único de versão da classe utilizado na serialização.
+     * Garante a compatibilidade estrutural do objeto durante o processo de desserialização.
+     */
     private static final long serialVersionUID = 1L;
+
     private final String login;
     private String senha;
 

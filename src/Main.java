@@ -1,6 +1,13 @@
 import easyaccept.EasyAccept;
 
+/**
+ * Entrada da aplicação usada para executar os casos de teste do EasyAccept.
+ * Os arquivos de teste estão localizados na pasta `tests`.
+ */
 public class Main{
+    /**
+     * Ponto de entrada que executa os scripts de teste EasyAccept.
+     */
     public static void main(String[] args){
         EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us1_1.txt"});
         EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us1_2.txt"});

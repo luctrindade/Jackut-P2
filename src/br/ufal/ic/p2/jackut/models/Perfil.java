@@ -9,11 +9,15 @@ import java.util.Map;
 /**
  * Representa o perfil descritivo de um usuário no sistema Jackut.
  * <p>
- * Esta classe isola o gerenciamento de atributos dinâmicos (como cidade natal,
- * estado civil, etc.), garantindo que o dicionário de dados fique fortemente encapsulado.
+ * Esta classe isola o gerenciamento de atributos dinâmicos,
+ * garantindo que o dicionário de dados fique fortemente encapsulado.
  * </p>
  */
 public class Perfil implements Serializable {
+    /**
+     * Identificador único de versão da classe utilizado na serialização.
+     * Garante a compatibilidade estrutural do objeto durante o processo de desserialização.
+     */
     private static final long serialVersionUID = 1L;
     /**
      * Dicionário interno que mapeia o nome de um atributo para o seu respectivo valor.
@@ -34,7 +38,7 @@ public class Perfil implements Serializable {
     /**
      * Adiciona um novo atributo ao perfil ou atualiza o valor de um atributo existente.
      *
-     * @param chave O nome do atributo (ex: "fumo", "idade").
+     * @param chave O nome do atributo.
      * @param valor O valor correspondente que será salvo.
      */
     public void setAtributo(String chave, String valor){
