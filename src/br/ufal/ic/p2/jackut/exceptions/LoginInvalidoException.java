@@ -5,7 +5,7 @@ package br.ufal.ic.p2.jackut.exceptions;
  */
 public class LoginInvalidoException extends RuntimeException {
     /**
-     * Cria a exceção com a mensagem "Login inválido".
+     * Exceção com a mensagem "Login inválido".
      */
     public LoginInvalidoException() {
         super("Login inválido.");

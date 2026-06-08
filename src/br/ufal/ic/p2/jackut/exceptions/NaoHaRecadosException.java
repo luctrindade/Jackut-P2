@@ -5,7 +5,7 @@ package br.ufal.ic.p2.jackut.exceptions;
  */
 public class NaoHaRecadosException extends RuntimeException {
     /**
-     * Cria a exceção com a mensagem "Não há recados.".
+     * Exceção com a mensagem "Não há recados.".
      */
     public NaoHaRecadosException() {
         super("Não há recados.");

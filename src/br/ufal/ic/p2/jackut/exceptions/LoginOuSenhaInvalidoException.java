@@ -5,7 +5,7 @@ package br.ufal.ic.p2.jackut.exceptions;
  */
 public class LoginOuSenhaInvalidoException extends RuntimeException {
     /**
-     * Cria a exceção com a mensagem "Login ou senha inválidos.".
+     * Exceção com a mensagem "Login ou senha inválidos.".
      */
     public LoginOuSenhaInvalidoException() {
         super("Login ou senha inválidos.");

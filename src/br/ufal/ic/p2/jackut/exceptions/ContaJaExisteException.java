@@ -5,7 +5,7 @@ package br.ufal.ic.p2.jackut.exceptions;
  */
 public class ContaJaExisteException extends RuntimeException {
     /**
-     * Cria a exceção com a mensagem "Conta com esse nome já existe.".
+     * Exceção com a mensagem "Conta com esse nome já existe.".
      */
     public ContaJaExisteException() {
         super("Conta com esse nome já existe.");

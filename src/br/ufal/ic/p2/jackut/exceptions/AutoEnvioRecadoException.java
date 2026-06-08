@@ -5,7 +5,7 @@ package br.ufal.ic.p2.jackut.exceptions;
  */
 public class AutoEnvioRecadoException extends RuntimeException {
     /**
-     * Cria a exceção com a mensagem "Usuário não pode enviar recado para si mesmo.".
+     * Exceção com a mensagem "Usuário não pode enviar recado para si mesmo.".
      */
     public AutoEnvioRecadoException() {
         super("Usuário não pode enviar recado para si mesmo.");
