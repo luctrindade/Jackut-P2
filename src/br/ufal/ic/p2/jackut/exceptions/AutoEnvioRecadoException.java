@@ -1,13 +1,13 @@
 package br.ufal.ic.p2.jackut.exceptions;
 
 /**
- * Constr√≥i a exce√ß√£o com a mensagem se tentar enviar recado a si mesmo.
+ * ConstrÛi a exceÁ„o com a mensagem se tentar enviar recado a si mesmo.
  */
 public class AutoEnvioRecadoException extends RuntimeException {
     /**
-     * Cria a exce√ß√£o com a mensagem "Usu√°rio n√£o pode enviar recado para si mesmo.".
+     * Cria a exceÁ„o com a mensagem "Usu·rio n„o pode enviar recado para si mesmo.".
      */
     public AutoEnvioRecadoException() {
-        super("Usu√°rio n√£o pode enviar recado para si mesmo.");
+        super("Usu·rio n„o pode enviar recado para si mesmo.");
     }
 }

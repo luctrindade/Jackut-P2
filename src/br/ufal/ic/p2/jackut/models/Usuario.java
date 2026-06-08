@@ -11,15 +11,15 @@ import java.util.*;
 /**
  * Entidade central do sistema Jackut.
  * <p>
- * O {@code Usuario} atua como a raiz de agrega√ß√£o, sendo respons√°vel por
- * encapsular e gerenciar o pr√≥prio estado, incluindo seu perfil descritivo,
- * lista de amizades, hist√≥rico de convites enviados e a caixa de recados.
+ * O {@code Usuario} atua como a raiz de agregaÁ„o, sendo respons·vel por
+ * encapsular e gerenciar o prÛprio estado, incluindo seu perfil descritivo,
+ * lista de amizades, histÛrico de convites enviados e a caixa de recados.
  * </p>
  */
 public class Usuario implements Serializable {
     /**
-     * Identificador √∫nico de vers√£o da classe utilizado na serializa√ß√£o.
-     * Garante a compatibilidade estrutural do objeto durante o processo de desserializa√ß√£o.
+     * Identificador ˙nico de vers„o da classe utilizado na serializaÁ„o.
+     * Garante a compatibilidade estrutural do objeto durante o processo de desserializaÁ„o.
      */
     private static final long serialVersionUID = 1L;
 
@@ -32,12 +32,12 @@ public class Usuario implements Serializable {
     private final Queue<Recado> recados;
 
     /**
-     * Constr√≥i e inicializa um novo Usu√°rio no sistema.
-     * Realiza a valida√ß√£o b√°sica das credenciais antes de instanciar as cole√ß√µes internas.
+     * ConstrÛi e inicializa um novo Usu·rio no sistema.
+     * Realiza a validaÁ„o b·sica das credenciais antes de instanciar as coleÁıes internas.
      *
-     * @param login O login desejado para o usu√°rio.
+     * @param login O login desejado para o usu·rio.
      * @param senha A senha de acesso da conta.
-     * @param nome  O nome de exibi√ß√£o inicial do usu√°rio.
+     * @param nome  O nome de exibiÁ„o inicial do usu·rio.
      * @throws LoginInvalidoException Se o login fornecido for nulo ou estiver em branco.
      * @throws SenhaInvalidaException Se a senha fornecida for nula ou estiver em branco.
      */
@@ -58,26 +58,26 @@ public class Usuario implements Serializable {
     }
 
     /**
-     * Recupera o login √∫nico do usu√°rio.
+     * Recupera o login ˙nico do usu·rio.
      *
-     * @return O login do usu√°rio.
+     * @return O login do usu·rio.
      */
     public String getLogin() {
         return login;
     }
 
     /**
-     * Valida se uma tentativa de senha corresponde √† senha real do usu√°rio.
+     * Valida se uma tentativa de senha corresponde ‡ senha real do usu·rio.
      *
      * @param senhaTentiva A senha inserida durante a tentativa de login.
-     * @return {@code true} se a senha estiver correta, {@code false} caso contr√°rio.
+     * @return {@code true} se a senha estiver correta, {@code false} caso contr·rio.
      */
     public boolean autenticar(String senhaTentiva){
         return this.senha.equals(senhaTentiva);
     }
 
     /**
-     * Delega a adi√ß√£o ou atualiza√ß√£o de um atributo descritivo para a classe Perfil.
+     * Delega a adiÁ„o ou atualizaÁ„o de um atributo descritivo para a classe Perfil.
      *
      * @param atributo O nome do atributo (ex: "estilo").
      * @param valor    O valor do atributo.
@@ -91,27 +91,27 @@ public class Usuario implements Serializable {
      *
      * @param atributo O nome do atributo consultado.
      * @return O valor armazenado no atributo.
-     * @throws AtributoNaoPreenchidoException Se o atributo n√£o existir no perfil.
+     * @throws AtributoNaoPreenchidoException Se o atributo n„o existir no perfil.
      */
     public String getAtributo(String atributo) throws AtributoNaoPreenchidoException{
         return this.perfil.getAtributo(atributo);
     }
 
     /**
-     * Verifica se o usu√°rio atual j√° √© amigo do usu√°rio informado.
+     * Verifica se o usu·rio atual j· È amigo do usu·rio informado.
      *
-     * @param amigoLogin O login do usu√°rio a ser verificado.
-     * @return {@code true} se a amizade j√° estiver consolidada, {@code false} caso contr√°rio.
+     * @param amigoLogin O login do usu·rio a ser verificado.
+     * @return {@code true} se a amizade j· estiver consolidada, {@code false} caso contr·rio.
      */
     public boolean ehAmigo(String amigoLogin){
         return this.amigos.contains(amigoLogin);
     }
 
     /**
-     * Verifica se o usu√°rio atual j√° enviou um convite pendente para o destino.
+     * Verifica se o usu·rio atual j· enviou um convite pendente para o destino.
      *
-     * @param amigoLogin O login do usu√°rio de destino.
-     * @return {@code true} se o convite j√° foi enviado, {@code false} caso contr√°rio.
+     * @param amigoLogin O login do usu·rio de destino.
+     * @return {@code true} se o convite j· foi enviado, {@code false} caso contr·rio.
      */
     public boolean jaEnviouConvitePara(String amigoLogin){
         return this.envioConvites.contains(amigoLogin);
@@ -120,23 +120,23 @@ public class Usuario implements Serializable {
     /**
      * Registra o envio de um novo convite de amizade.
      *
-     * @param amigoLogin O login do destinat√°rio do convite.
+     * @param amigoLogin O login do destinat·rio do convite.
      */
     public void enviarConvite(String amigoLogin){
         this.envioConvites.add(amigoLogin);
     }
 
     /**
-     * Remove um convite pendente da lista de enviados (utilizado quando a amizade √© aceita).
+     * Remove um convite pendente da lista de enviados (utilizado quando a amizade È aceita).
      *
-     * @param amigoLogin O login do destinat√°rio cujo convite ser√° removido.
+     * @param amigoLogin O login do destinat·rio cujo convite ser· removido.
      */
     public void removerConviteEnviado(String amigoLogin){
         this.envioConvites.remove(amigoLogin);
     }
 
     /**
-     * Adiciona um novo usu√°rio √† lista de amizades consolidadas.
+     * Adiciona um novo usu·rio ‡ lista de amizades consolidadas.
      *
      * @param amigoLogin O login do novo amigo.
      */
@@ -145,16 +145,16 @@ public class Usuario implements Serializable {
     }
 
     /**
-     * Recupera a lista de amigos do usu√°rio de forma segura (imut√°vel).
+     * Recupera a lista de amigos do usu·rio de forma segura (imut·vel).
      *
-     * @return Uma {@code List} n√£o modific√°vel contendo os logins dos amigos.
+     * @return Uma {@code List} n„o modific·vel contendo os logins dos amigos.
      */
     public List<String> getAmigos(){
         return Collections.unmodifiableList(this.amigos);
     }
 
     /**
-     * Insere um novo recado no final da fila de leitura do usu√°rio.
+     * Insere um novo recado no final da fila de leitura do usu·rio.
      *
      * @param recado O objeto Recado recebido.
      */
@@ -163,10 +163,10 @@ public class Usuario implements Serializable {
     }
 
     /**
-     * L√™ o recado mais antigo da caixa de entrada, removendo-o da fila de espera.
+     * LÍ o recado mais antigo da caixa de entrada, removendo-o da fila de espera.
      *
-     * @return O conte√∫do em texto do recado.
-     * @throws NaoHaRecadosException Se o usu√°rio n√£o possuir nenhum recado na fila.
+     * @return O conte˙do em texto do recado.
+     * @throws NaoHaRecadosException Se o usu·rio n„o possuir nenhum recado na fila.
      */
     public String lerRecado() throws NaoHaRecadosException{
         if(this.recados.isEmpty()){

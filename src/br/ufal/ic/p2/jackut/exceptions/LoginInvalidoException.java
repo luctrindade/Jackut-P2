@@ -1,13 +1,13 @@
 package br.ufal.ic.p2.jackut.exceptions;
 
 /**
- * ConstrÃ³i a exceÃ§Ã£o com a mensagem caso login seja invÃ¡lido.
+ * Constrói a exceção com a mensagem caso login seja inválido.
  */
 public class LoginInvalidoException extends RuntimeException {
     /**
-     * Cria a exceÃ§Ã£o com a mensagem "Login invÃ¡lido".
+     * Cria a exceção com a mensagem "Login inválido".
      */
     public LoginInvalidoException() {
-        super("Login invÃ¡lido.");
+        super("Login inválido.");
     }
 }

@@ -1,13 +1,13 @@
 package br.ufal.ic.p2.jackut.exceptions;
 
 /**
- * Constr√≥i a exce√ß√£o se o Usu√°rio a adicionar ja √© amigo
+ * ConstrÛi a exceÁ„o se o Usu·rio a adicionar ja È amigo
  */
 public class UsuarioJaAdicionadoException extends RuntimeException {
     public UsuarioJaAdicionadoException() {
         /**
-         * Cria a exce√ß√£o com a mensagem "Usu√°rio j√° est√° adicionado como amigo.".
+         * Cria a exceÁ„o com a mensagem "Usu·rio j· est· adicionado como amigo.".
          */
-        super("Usu√°rio j√° est√° adicionado como amigo.");
+        super("Usu·rio j· est· adicionado como amigo.");
     }
 }

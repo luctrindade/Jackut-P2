@@ -8,25 +8,25 @@ import br.ufal.ic.p2.jackut.repositories.JackutRepository;
 import java.util.UUID;
 
 /**
- * Controlador respons√°vel por gerenciar o processo de autentica√ß√£o de usu√°rios
- * e a cria√ß√£o de sess√µes ativas no sistema Jackut.
+ * Controlador respons·vel por gerenciar o processo de autenticaÁ„o de usu·rios
+ * e a criaÁ„o de sessıes ativas no sistema Jackut.
  */
 public class AutenticacaoController {
 
     /**
-     * Refer√™ncia ao reposit√≥rio central para acesso aos dados de usu√°rios cadastrados
-     * e armazenamento das sess√µes ativas.
+     * ReferÍncia ao repositÛrio central para acesso aos dados de usu·rios cadastrados
+     * e armazenamento das sessıes ativas.
      */
     private final JackutRepository repo = JackutRepository.getInstancia();
 
     /**
-     * Autentica um usu√°rio no sistema utilizando seu login e senha.
-     * Em caso de sucesso, gera um identificador √∫nico (UUID) para a sess√£o e a registra no sistema.
+     * Autentica um usu·rio no sistema utilizando seu login e senha.
+     * Em caso de sucesso, gera um identificador ˙nico (UUID) para a sess„o e a registra no sistema.
      *
-     * @param login O login de acesso do usu√°rio.
-     * @param senha A senha correspondente √† conta do usu√°rio.
-     * @return Uma {@code String} contendo o UUID gerado para a sess√£o ativa.
-     * @throws LoginOuSenhaInvalidoException Se o usu√°rio n√£o for encontrado no reposit√≥rio ou a senha estiver incorreta.
+     * @param login O login de acesso do usu·rio.
+     * @param senha A senha correspondente ‡ conta do usu·rio.
+     * @return Uma {@code String} contendo o UUID gerado para a sess„o ativa.
+     * @throws LoginOuSenhaInvalidoException Se o usu·rio n„o for encontrado no repositÛrio ou a senha estiver incorreta.
      * @throws LoginInvalidoException        Se as credenciais fornecidas (login ou senha) forem nulas ou estiverem vazias.
      */
     public String abrirSessao(String login, String senha) throws LoginOuSenhaInvalidoException {

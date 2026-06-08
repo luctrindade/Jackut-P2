@@ -1,13 +1,13 @@
 package br.ufal.ic.p2.jackut.exceptions;
 
 /**
- * Constr√≥i a exce√ß√£o com a mensagem caso o atributo n√£o tenha sido definido.
+ * ConstrÛi a exceÁ„o com a mensagem caso o atributo n„o tenha sido definido.
  */
 public class AtributoNaoPreenchidoException extends RuntimeException {
     /**
-     * Cria a exce√ß√£o com a mensagem "Atributo n√£o preenchido.".
+     * Cria a exceÁ„o com a mensagem "Atributo n„o preenchido.".
      */
     public AtributoNaoPreenchidoException() {
-        super("Atributo n√£o preenchido.");
+        super("Atributo n„o preenchido.");
     }
 }

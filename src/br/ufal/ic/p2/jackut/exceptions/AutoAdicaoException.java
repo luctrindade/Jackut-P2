@@ -1,13 +1,13 @@
 package br.ufal.ic.p2.jackut.exceptions;
 
 /**
- * Constr√≥i a exce√ß√£o com a mensagem se houver auto adi√ß√£o.
+ * ConstrÛi a exceÁ„o com a mensagem se houver auto adiÁ„o.
  */
 public class AutoAdicaoException extends RuntimeException {
     /**
-     * Cria a exce√ß√£o com a mensagem "Usu√°rio n√£o pode adicionar a si mesmo como amigo.".
+     * Cria a exceÁ„o com a mensagem "Usu·rio n„o pode adicionar a si mesmo como amigo.".
      */
     public AutoAdicaoException() {
-        super("Usu√°rio n√£o pode adicionar a si mesmo como amigo.");
+        super("Usu·rio n„o pode adicionar a si mesmo como amigo.");
     }
 }

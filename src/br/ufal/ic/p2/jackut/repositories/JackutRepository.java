@@ -9,16 +9,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Reposit√≥rio central de dados do sistema Jackut.
+ * RepositÛrio central de dados do sistema Jackut.
  * <p>
- * Implementa o padr√£o de projeto <b>Singleton</b> para garantir que exista
- * apenas uma √∫nica inst√¢ncia (uma fonte √∫nica de verdade) armazenando os
- * dados em mem√≥ria (usu√°rios e sess√µes ativas) durante toda a execu√ß√£o do sistema.
+ * Implementa o padr„o de projeto <b>Singleton</b> para garantir que exista
+ * apenas uma ˙nica inst‚ncia (uma fonte ˙nica de verdade) armazenando os
+ * dados em memÛria (usu·rios e sessıes ativas) durante toda a execuÁ„o do sistema.
  * </p>
  */
 public class JackutRepository {
 
-    /** * Inst√¢ncia est√°tica e √∫nica da classe (Singleton).
+    /** * Inst‚ncia est·tica e ˙nica da classe (Singleton).
      */
     private static JackutRepository instancia;
 
@@ -26,7 +26,7 @@ public class JackutRepository {
     private final Map<String, String> sessoesAtivas;
 
     /**
-     * Construtor privado para impedir a cria√ß√£o de inst√¢ncias externas via operador {@code new}.
+     * Construtor privado para impedir a criaÁ„o de inst‚ncias externas via operador {@code new}.
      * Inicializa as estruturas de dados vazias.
      */
     private JackutRepository(){
@@ -35,7 +35,7 @@ public class JackutRepository {
     }
 
     /**
-     * Exporta o estado atual do sistema para um arquivo bin√°rio.
+     * Exporta o estado atual do sistema para um arquivo bin·rio.
      */
     public void salvarDados() {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("database.dat"))) {
@@ -47,7 +47,7 @@ public class JackutRepository {
     }
 
     /**
-     * Carrega o estado do sistema a partir de um arquivo bin√°rio.
+     * Carrega o estado do sistema a partir de um arquivo bin·rio.
      */
     @SuppressWarnings("unchecked")
     public void carregarDados() {
@@ -70,9 +70,9 @@ public class JackutRepository {
     }
 
     /**
-     * Recupera a inst√¢ncia √∫nica do reposit√≥rio.
-     * √© sincronizado para ser seguro em ambientes com m√∫ltiplas threads (thread-safe).
-     * @return A inst√¢ncia √∫nica e global de {@code JackutRepository}.
+     * Recupera a inst‚ncia ˙nica do repositÛrio.
+     * È sincronizado para ser seguro em ambientes com m˙ltiplas threads (thread-safe).
+     * @return A inst‚ncia ˙nica e global de {@code JackutRepository}.
      */
     public static synchronized JackutRepository getInstancia(){
         if(instancia == null){
@@ -82,8 +82,8 @@ public class JackutRepository {
     }
 
     /**
-     * Limpa completamente o "banco de dados" em mem√≥ria.
-     * Remove todos os usu√°rios cadastrados e destr√≥i todas as sess√µes ativas.
+     * Limpa completamente o "banco de dados" em memÛria.
+     * Remove todos os usu·rios cadastrados e destrÛi todas as sessıes ativas.
      */
     public void zerarSistema(){
         this.usuarios.clear();
@@ -91,7 +91,7 @@ public class JackutRepository {
     }
 
     /**
-     * Recupera o mapa contendo todos os usu√°rios cadastrados no sistema.
+     * Recupera o mapa contendo todos os usu·rios cadastrados no sistema.
      *
      * @return Um {@code Map} contendo os logins como chaves e as entidades {@code Usuario} como valores.
      */
@@ -100,9 +100,9 @@ public class JackutRepository {
     }
 
     /**
-     * Recupera o mapa contendo as sess√µes ativas no momento.
+     * Recupera o mapa contendo as sessıes ativas no momento.
      *
-     * @return Um {@code Map} contendo os IDs das sess√µes como chaves e os logins autenticados como valores.
+     * @return Um {@code Map} contendo os IDs das sessıes como chaves e os logins autenticados como valores.
      */
     public Map<String, String> getSessoesAtivas(){
         return sessoesAtivas;

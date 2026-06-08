@@ -1,13 +1,13 @@
 package br.ufal.ic.p2.jackut.exceptions;
 
 /**
- * Constr√≥i a exce√ß√£o com a mensagem caso convite pendente.
+ * ConstrÛi a exceÁ„o com a mensagem caso convite pendente.
  */
 public class ConvitePendenteException extends RuntimeException {
     /**
-     * Cria a exce√ß√£o com a mensagem "Usu√°rio j√° est√° adicionado como amigo, esperando aceita√ß√£o do convite.".
+     * Cria a exceÁ„o com a mensagem "Usu·rio j· est· adicionado como amigo, esperando aceitaÁ„o do convite.".
      */
     public ConvitePendenteException() {
-        super("Usu√°rio j√° est√° adicionado como amigo, esperando aceita√ß√£o do convite.");
+        super("Usu·rio j· est· adicionado como amigo, esperando aceitaÁ„o do convite.");
     }
 }

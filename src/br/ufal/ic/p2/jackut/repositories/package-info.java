@@ -1,8 +1,8 @@
 /**
- * Cont√©m as classes respons√°veis pela persist√™ncia de dados do sistema Jackut.
+ * ContÈm as classes respons·veis pela persistÍncia de dados do sistema Jackut.
  * <p>
- * Implementa reposit√≥rios (como o Singleton JackutRepository) que isolam a
- * forma como os dados de usu√°rios e sess√µes s√£o armazenados em mem√≥ria.
+ * Implementa repositÛrios (como o Singleton JackutRepository) que isolam a
+ * forma como os dados de usu·rios e sessıes s„o armazenados em memÛria.
  * </p>
  */
 package br.ufal.ic.p2.jackut.repositories;

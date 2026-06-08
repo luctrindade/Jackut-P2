@@ -1,7 +1,7 @@
 /**
  * Pacote principal do sistema Jackut.
  * <p>
- * ContÃ©m a Fachada (Facade) que centraliza e simplifica a comunicaÃ§Ã£o
+ * Contém a Fachada (Facade) que centraliza e simplifica a comunicação
  * com os subsistemas internos, servindo como ponto de entrada para os testes.
  * </p>
  */

@@ -10,7 +10,7 @@ import br.ufal.ic.p2.jackut.repositories.JackutRepository;
 /**
  * Fachada principal do sistema Jackut.
  * <p>
- * Implementa o padr√£o de projeto Facade para fornecer uma interface unificada
+ * Implementa o padr„o de projeto Facade para fornecer uma interface unificada
  * e simplificada, isolando a complexidade dos controladores internos e
  * servindo como ponto de entrada para os testes do EasyAccept.
  * </p>
@@ -19,70 +19,70 @@ public class Facade {
     private final UsuarioController usuarioController = new UsuarioController();
     private final AutenticacaoController autenticacaoController = new AutenticacaoController();
     private final AmizadeController amizadeController = new AmizadeController();
-    /** Reposit√≥rio central (Singleton) de acesso aos dados em mem√≥ria. */
+    /** RepositÛrio central (Singleton) de acesso aos dados em memÛria. */
     private final JackutRepository repo = JackutRepository.getInstancia();
     private final RecadoController recadoController = new RecadoController();
 
     /**
      * Construtor da Facade.
      * Tenta carregar o estado anterior do sistema salvo em disco (se existir)
-     * logo na inicializa√ß√£o.
+     * logo na inicializaÁ„o.
      */
     public Facade() {
         repo.carregarDados();
     }
 
     /**
-     * Limpa completamente o estado do sistema, deletando todos os usu√°rios
-     * e encerrando todas as sess√µes ativas. Utilizado principalmente para
-     * a redefini√ß√£o de estado entre testes.
+     * Limpa completamente o estado do sistema, deletando todos os usu·rios
+     * e encerrando todas as sessıes ativas. Utilizado principalmente para
+     * a redefiniÁ„o de estado entre testes.
      */
     public void zerarSistema(){
         repo.zerarSistema();
     }
 
     /**
-     * Delega a cria√ß√£o de um novo usu√°rio para o controlador correspondente.
+     * Delega a criaÁ„o de um novo usu·rio para o controlador correspondente.
      *
-     * @param login O login do novo usu√°rio.
-     * @param senha A senha do novo usu√°rio.
-     * @param nome  O nome de exibi√ß√£o.
-     * @throws ContaJaExisteException Se o login j√° estiver cadastrado.
+     * @param login O login do novo usu·rio.
+     * @param senha A senha do novo usu·rio.
+     * @param nome  O nome de exibiÁ„o.
+     * @throws ContaJaExisteException Se o login j· estiver cadastrado.
      */
     public void criarUsuario(String login, String senha, String nome) throws ContaJaExisteException {
         usuarioController.criarUsuario(login, senha, nome);
     }
 
     /**
-     * Consulta um atributo espec√≠fico do perfil de um usu√°rio.
+     * Consulta um atributo especÌfico do perfil de um usu·rio.
      *
-     * @param login    O login do usu√°rio consultado.
+     * @param login    O login do usu·rio consultado.
      * @param atributo O nome do atributo desejado.
      * @return O valor do atributo.
-     * @throws UsuarioNaoCadastradoException Se o usu√°rio n√£o existir.
+     * @throws UsuarioNaoCadastradoException Se o usu·rio n„o existir.
      */
     public String getAtributoUsuario(String login, String atributo) throws UsuarioNaoCadastradoException {
         return usuarioController.getAtributoUsuario(login,atributo);
     }
 
     /**
-     * Edita ou adiciona um atributo ao perfil do usu√°rio logado.
+     * Edita ou adiciona um atributo ao perfil do usu·rio logado.
      *
-     * @param id       O identificador da sess√£o ativa.
+     * @param id       O identificador da sess„o ativa.
      * @param atributo O nome do atributo a ser modificado.
      * @param valor    O novo valor do atributo.
-     * @throws UsuarioNaoCadastradoException Se a sess√£o for inv√°lida.
+     * @throws UsuarioNaoCadastradoException Se a sess„o for inv·lida.
      */
     public void editarPerfil(String id, String atributo, String valor) throws UsuarioNaoCadastradoException{
         usuarioController.editarPerfil(id,atributo,valor);
     }
 
     /**
-     * Autentica um usu√°rio e cria uma nova sess√£o no sistema.
+     * Autentica um usu·rio e cria uma nova sess„o no sistema.
      *
-     * @param login O login do usu√°rio.
+     * @param login O login do usu·rio.
      * @param senha A senha de acesso.
-     * @return O UUID (identificador √∫nico) da sess√£o gerada.
+     * @return O UUID (identificador ˙nico) da sess„o gerada.
      * @throws LoginOuSenhaInvalidoException Se as credenciais estiverem incorretas.
      */
     public String abrirSessao(String login, String senha) throws LoginOuSenhaInvalidoException {
@@ -92,55 +92,55 @@ public class Facade {
     /**
      * Envia um convite de amizade ou consolida uma amizade pendente.
      *
-     * @param login O id da sess√£o do usu√°rio remetente.
-     * @param amigo O login do usu√°rio destinat√°rio.
-     * @throws UsuarioNaoCadastradoException Se algum dos usu√°rios n√£o for encontrado.
+     * @param login O id da sess„o do usu·rio remetente.
+     * @param amigo O login do usu·rio destinat·rio.
+     * @throws UsuarioNaoCadastradoException Se algum dos usu·rios n„o for encontrado.
      */
     public void adicionarAmigo(String login, String amigo) throws UsuarioNaoCadastradoException{
         amizadeController.adicionarAmigo(login,amigo);
     }
 
     /**
-     * Verifica se existe uma amizade entre dois usu√°rios.
+     * Verifica se existe uma amizade entre dois usu·rios.
      *
-     * @param login O login do usu√°rio base.
-     * @param amigo O login do poss√≠vel amigo.
-     * @return {@code true} se forem amigos, {@code false} caso contr√°rio.
+     * @param login O login do usu·rio base.
+     * @param amigo O login do possÌvel amigo.
+     * @return {@code true} se forem amigos, {@code false} caso contr·rio.
      */
     public boolean ehAmigo(String login, String amigo){
         return amizadeController.ehAmigo(login, amigo);
     }
 
     /**
-     * Retorna a lista de amigos de um usu√°rio formatada em string.
+     * Retorna a lista de amigos de um usu·rio formatada em string.
      *
-     * @param login O login do usu√°rio consultado.
+     * @param login O login do usu·rio consultado.
      * @return Uma string contendo os amigos no formato {amigo1,amigo2}.
-     * @throws UsuarioNaoCadastradoException Se o usu√°rio n√£o existir.
+     * @throws UsuarioNaoCadastradoException Se o usu·rio n„o existir.
      */
     public String getAmigos(String login) throws UsuarioNaoCadastradoException{
         return amizadeController.getAmigos(login);
     }
 
     /**
-     * Envia um recado para a caixa de entrada de outro usu√°rio.
+     * Envia um recado para a caixa de entrada de outro usu·rio.
      *
-     * @param id           O id da sess√£o do remetente.
-     * @param destinatario O login do usu√°rio que receber√° o recado.
+     * @param id           O id da sess„o do remetente.
+     * @param destinatario O login do usu·rio que receber· o recado.
      * @param recado       O texto da mensagem.
-     * @throws UsuarioNaoCadastradoException Se a sess√£o ou o destinat√°rio forem inv√°lidos.
-     * @throws AutoEnvioRecadoException      Se o usu√°rio tentar enviar um recado para si mesmo.
+     * @throws UsuarioNaoCadastradoException Se a sess„o ou o destinat·rio forem inv·lidos.
+     * @throws AutoEnvioRecadoException      Se o usu·rio tentar enviar um recado para si mesmo.
      */
     public void enviarRecado(String id, String destinatario, String recado) throws UsuarioNaoCadastradoException, AutoEnvioRecadoException {
         recadoController.enviarRecado(id, destinatario, recado);
     }
 
     /**
-     * L√™ e remove o recado mais antigo da fila do usu√°rio logado.
+     * LÍ e remove o recado mais antigo da fila do usu·rio logado.
      *
-     * @param id O id da sess√£o do usu√°rio.
+     * @param id O id da sess„o do usu·rio.
      * @return O texto do recado lido.
-     * @throws UsuarioNaoCadastradoException Se a sess√£o for inv√°lida.
+     * @throws UsuarioNaoCadastradoException Se a sess„o for inv·lida.
      * @throws NaoHaRecadosException         Se a fila de recados estiver vazia.
      */
     public String lerRecado(String id) throws UsuarioNaoCadastradoException, NaoHaRecadosException{
@@ -148,8 +148,8 @@ public class Facade {
     }
 
     /**
-     * M√©todo acionado pelo EasyAccept no final da execu√ß√£o dos testes.
-     * Garante que todo o estado da mem√≥ria seja persistido no arquivo f√≠sico.
+     * MÈtodo acionado pelo EasyAccept no final da execuÁ„o dos testes.
+     * Garante que todo o estado da memÛria seja persistido no arquivo fÌsico.
      */
     public void encerrarSistema(){
         repo.salvarDados();

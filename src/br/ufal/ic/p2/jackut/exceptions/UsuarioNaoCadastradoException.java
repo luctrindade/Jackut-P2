@@ -1,13 +1,13 @@
 package br.ufal.ic.p2.jackut.exceptions;
 
 /**
- * ConstrÃ³i a exceÃ§Ã£o se o UsuÃ¡rio nÃ£o estiver cadastrado.
+ * Constrói a exceção se o Usuário não estiver cadastrado.
  */
 public class UsuarioNaoCadastradoException extends RuntimeException {
     /**
-     * Cria a exceÃ§Ã£o com a mensagem "UsuÃ¡rio nÃ£o cadastrado.".
+     * Cria a exceção com a mensagem "Usuário não cadastrado.".
      */
     public UsuarioNaoCadastradoException() {
-        super("UsuÃ¡rio nÃ£o cadastrado.");
+        super("Usuário não cadastrado.");
     }
 }

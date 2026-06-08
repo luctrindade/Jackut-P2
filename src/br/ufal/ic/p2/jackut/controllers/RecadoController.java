@@ -8,26 +8,26 @@ import br.ufal.ic.p2.jackut.models.Usuario;
 import br.ufal.ic.p2.jackut.repositories.JackutRepository;
 
 /**
- * Controlador respons√°vel por orquestrar a l√≥gica de envio e leitura de recados.
+ * Controlador respons·vel por orquestrar a lÛgica de envio e leitura de recados.
  * <p>
- * Intermedia a comunica√ß√£o entre a Facade e os modelos, validando regras de
- * neg√≥cio antes de delegar a manipula√ß√£o dos dados para a entidade Usu√°rio.
+ * Intermedia a comunicaÁ„o entre a Facade e os modelos, validando regras de
+ * negÛcio antes de delegar a manipulaÁ„o dos dados para a entidade Usu·rio.
  * </p>
  */
 public class RecadoController {
     /**
-     * Refer√™ncia ao reposit√≥rio central de dados do sistema.
+     * ReferÍncia ao repositÛrio central de dados do sistema.
      */
     private final JackutRepository repo = JackutRepository.getInstancia();
 
     /**
-     * Envia um recado de um usu√°rio logado para um destinat√°rio especificado.
+     * Envia um recado de um usu·rio logado para um destinat·rio especificado.
      *
-     * @param idSessao O identificador √∫nico da sess√£o ativa do usu√°rio remetente.
-     * @param destLogin O login do usu√°rio que receber√° o recado.
-     * @param recado O conte√∫do em texto do recado a ser enviado.
-     * @throws UsuarioNaoCadastradoException Se o remetente ou o destinat√°rio n√£o existirem no sistema.
-     * @throws AutoEnvioRecadoException Se o usu√°rio tentar enviar um recado para o seu pr√≥prio login.
+     * @param idSessao O identificador ˙nico da sess„o ativa do usu·rio remetente.
+     * @param destLogin O login do usu·rio que receber· o recado.
+     * @param recado O conte˙do em texto do recado a ser enviado.
+     * @throws UsuarioNaoCadastradoException Se o remetente ou o destinat·rio n„o existirem no sistema.
+     * @throws AutoEnvioRecadoException Se o usu·rio tentar enviar um recado para o seu prÛprio login.
      */
     public void enviarRecado(String idSessao, String destLogin, String recado) throws UsuarioNaoCadastradoException, AutoEnvioRecadoException{
         String remetLogin = repo.getSessoesAtivas().get(idSessao);
@@ -45,12 +45,12 @@ public class RecadoController {
         dest.adicionarRecado(newRecado);
     }
     /**
-     * L√™ o recado mais antigo da caixa de entrada do usu√°rio logado e o remove da fila.
+     * LÍ o recado mais antigo da caixa de entrada do usu·rio logado e o remove da fila.
      *
-     * @param idSessao O identificador √∫nico da sess√£o ativa do usu√°rio.
+     * @param idSessao O identificador ˙nico da sess„o ativa do usu·rio.
      * @return Uma {@code String} contendo o texto do recado lido.
-     * @throws UsuarioNaoCadastradoException Se a sess√£o for inv√°lida ou o usu√°rio n√£o existir.
-     * @throws NaoHaRecadosException Se a fila de recados do usu√°rio estiver vazia.
+     * @throws UsuarioNaoCadastradoException Se a sess„o for inv·lida ou o usu·rio n„o existir.
+     * @throws NaoHaRecadosException Se a fila de recados do usu·rio estiver vazia.
      */
     public String lerRecado(String idSessao) throws UsuarioNaoCadastradoException, NaoHaRecadosException{
         String login = repo.getSessoesAtivas().get(idSessao);

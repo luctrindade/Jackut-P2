@@ -7,28 +7,28 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * Representa o perfil descritivo de um usu√°rio no sistema Jackut.
+ * Representa o perfil descritivo de um usu·rio no sistema Jackut.
  * <p>
- * Esta classe isola o gerenciamento de atributos din√¢micos,
- * garantindo que o dicion√°rio de dados fique fortemente encapsulado.
+ * Esta classe isola o gerenciamento de atributos din‚micos,
+ * garantindo que o dicion·rio de dados fique fortemente encapsulado.
  * </p>
  */
 public class Perfil implements Serializable {
     /**
-     * Identificador √∫nico de vers√£o da classe utilizado na serializa√ß√£o.
-     * Garante a compatibilidade estrutural do objeto durante o processo de desserializa√ß√£o.
+     * Identificador ˙nico de vers„o da classe utilizado na serializaÁ„o.
+     * Garante a compatibilidade estrutural do objeto durante o processo de desserializaÁ„o.
      */
     private static final long serialVersionUID = 1L;
     /**
-     * Dicion√°rio interno que mapeia o nome de um atributo para o seu respectivo valor.
+     * Dicion·rio interno que mapeia o nome de um atributo para o seu respectivo valor.
      */
     private final Map<String, String> atributos;
 
     /**
-     * Constr√≥i um novo perfil de usu√°rio e inicializa a estrutura de armazenamento.
-     * O nome √© um atributo obrigat√≥rio de funda√ß√£o e j√° √© salvo na cria√ß√£o.
+     * ConstrÛi um novo perfil de usu·rio e inicializa a estrutura de armazenamento.
+     * O nome È um atributo obrigatÛrio de fundaÁ„o e j· È salvo na criaÁ„o.
      *
-     * @param nome O nome de exibi√ß√£o inicial do dono do perfil.
+     * @param nome O nome de exibiÁ„o inicial do dono do perfil.
      */
     public Perfil(String nome){
         this.atributos = new HashMap<>();
@@ -39,7 +39,7 @@ public class Perfil implements Serializable {
      * Adiciona um novo atributo ao perfil ou atualiza o valor de um atributo existente.
      *
      * @param chave O nome do atributo.
-     * @param valor O valor correspondente que ser√° salvo.
+     * @param valor O valor correspondente que ser· salvo.
      */
     public void setAtributo(String chave, String valor){
         this.atributos.put(chave,valor);
@@ -50,7 +50,7 @@ public class Perfil implements Serializable {
      *
      * @param chave O nome do atributo que se deseja consultar.
      * @return Uma {@code String} contendo o valor do atributo solicitado.
-     * @throws AtributoNaoPreenchidoException Se a chave fornecida n√£o existir no dicion√°rio do perfil.
+     * @throws AtributoNaoPreenchidoException Se a chave fornecida n„o existir no dicion·rio do perfil.
      */
     public String getAtributo(String chave) throws AtributoNaoPreenchidoException{
         if(!this.atributos.containsKey(chave)){

@@ -10,29 +10,29 @@ import br.ufal.ic.p2.jackut.repositories.JackutRepository;
 import java.util.List;
 
 /**
- * Controlador respons√°vel por orquestrar as regras de neg√≥cio relacionadas
- * aos v√≠nculos de amizade do sistema Jackut.
- * Garante as valida√ß√µes necess√°rias para o envio de convites, aceita√ß√£o e
- * verifica√ß√£o de relacionamentos entre usu√°rios.
+ * Controlador respons·vel por orquestrar as regras de negÛcio relacionadas
+ * aos vÌnculos de amizade do sistema Jackut.
+ * Garante as validaÁıes necess·rias para o envio de convites, aceitaÁ„o e
+ * verificaÁ„o de relacionamentos entre usu·rios.
  */
 public class AmizadeController {
     /**
-     * Refer√™ncia ao reposit√≥rio central para acesso e persist√™ncia em mem√≥ria
-     * das sess√µes e dos usu√°rios.
+     * ReferÍncia ao repositÛrio central para acesso e persistÍncia em memÛria
+     * das sessıes e dos usu·rios.
      */
     private final JackutRepository repo = JackutRepository.getInstancia();
 
     /**
      * Adiciona um amigo ou envia um convite de amizade.
-     * Se o usu√°rio destino j√° houver enviado um convite para o remetente, a amizade
-     * √© consolidada imediatamente. Caso contr√°rio, um convite pendente √© registrado.
+     * Se o usu·rio destino j· houver enviado um convite para o remetente, a amizade
+     * È consolidada imediatamente. Caso contr·rio, um convite pendente È registrado.
      *
-     * @param idSessao   O identificador √∫nico da sess√£o do usu√°rio logado que est√° enviando a solicita√ß√£o.
-     * @param amigoLogin O login do usu√°rio que se deseja adicionar como amigo.
-     * @throws UsuarioNaoCadastradoException Se a sess√£o for inv√°lida ou o login do amigo n√£o existir no sistema.
-     * @throws AutoAdicaoException           Se o usu√°rio tentar adicionar a si pr√≥prio.
-     * @throws UsuarioJaAdicionadoException  Se os usu√°rios j√° possu√≠rem um v√≠nculo de amizade.
-     * @throws ConvitePendenteException      Se um convite j√° tiver sido enviado anteriormente para este usu√°rio.
+     * @param idSessao   O identificador ˙nico da sess„o do usu·rio logado que est· enviando a solicitaÁ„o.
+     * @param amigoLogin O login do usu·rio que se deseja adicionar como amigo.
+     * @throws UsuarioNaoCadastradoException Se a sess„o for inv·lida ou o login do amigo n„o existir no sistema.
+     * @throws AutoAdicaoException           Se o usu·rio tentar adicionar a si prÛprio.
+     * @throws UsuarioJaAdicionadoException  Se os usu·rios j· possuÌrem um vÌnculo de amizade.
+     * @throws ConvitePendenteException      Se um convite j· tiver sido enviado anteriormente para este usu·rio.
      */
     public void adicionarAmigo(String idSessao, String amigoLogin) throws UsuarioNaoCadastradoException{
         String meuLogin = repo.getSessoesAtivas().get(idSessao);
@@ -57,11 +57,11 @@ public class AmizadeController {
     }
 
     /**
-     * Verifica se existe um v√≠nculo de amizade consolidado entre dois usu√°rios.
+     * Verifica se existe um vÌnculo de amizade consolidado entre dois usu·rios.
      *
-     * @param login      O login do usu√°rio base da consulta.
-     * @param amigoLogin O login do poss√≠vel amigo a ser verificado.
-     * @return {@code true} se a amizade existir; {@code false} caso a amizade n√£o exista ou o usu√°rio base seja nulo.
+     * @param login      O login do usu·rio base da consulta.
+     * @param amigoLogin O login do possÌvel amigo a ser verificado.
+     * @return {@code true} se a amizade existir; {@code false} caso a amizade n„o exista ou o usu·rio base seja nulo.
      */
     public boolean ehAmigo(String login, String amigoLogin){
         Usuario usuario = repo.getUsuarios().get(login);
@@ -70,11 +70,11 @@ public class AmizadeController {
     }
 
     /**
-     * Recupera a lista de amigos de um usu√°rio e a formata como uma string delimitada por chaves.
+     * Recupera a lista de amigos de um usu·rio e a formata como uma string delimitada por chaves.
      *
-     * @param login O login do usu√°rio cujos amigos ser√£o listados.
+     * @param login O login do usu·rio cujos amigos ser„o listados.
      * @return Uma {@code String} contendo os logins dos amigos no formato "{amigo1,amigo2}".
-     * @throws UsuarioNaoCadastradoException Se o login informado n√£o estiver cadastrado no sistema.
+     * @throws UsuarioNaoCadastradoException Se o login informado n„o estiver cadastrado no sistema.
      */
     public String getAmigos(String login) throws UsuarioNaoCadastradoException{
         Usuario usuario = repo.getUsuarios().get(login);

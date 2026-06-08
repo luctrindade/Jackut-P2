@@ -1,13 +1,13 @@
 package br.ufal.ic.p2.jackut.exceptions;
 
 /**
- * ConstrÃ³i a exceÃ§Ã£o com a mensagem caso usuÃ¡rio colocar senha invÃ¡lida.
+ * Constrói a exceção com a mensagem caso usuário colocar senha inválida.
  */
 public class SenhaInvalidaException extends RuntimeException {
     /**
-     * Cria a exceÃ§Ã£o com a mensagem "Senha invÃ¡lida.".
+     * Cria a exceção com a mensagem "Senha inválida.".
      */
     public SenhaInvalidaException() {
-        super("Senha invÃ¡lida.");
+        super("Senha inválida.");
     }
 }

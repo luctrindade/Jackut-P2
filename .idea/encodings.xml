@@ -1,13 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="Encoding">
-    <file url="file://$PROJECT_DIR$/tests/us1_1.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/tests/us1_2.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/tests/us2_1.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/tests/us2_2.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/tests/us3_1.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/tests/us3_2.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/tests/us4_1.txt" charset="UTF-8" />
-    <file url="file://$PROJECT_DIR$/tests/us4_2.txt" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/Main.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/Facade.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/controllers/AmizadeController.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/controllers/AutenticacaoController.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/controllers/RecadoController.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/controllers/UsuarioController.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/controllers/package-info.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/AtributoNaoPreenchidoException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/AutoAdicaoException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/AutoEnvioRecadoException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/ContaJaExisteException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/ConvitePendenteException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/LoginInvalidoException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/LoginOuSenhaInvalidoException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/NaoHaRecadosException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/SenhaInvalidaException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/UsuarioJaAdicionadoException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/UsuarioNaoCadastradoException.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/exceptions/package-info.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/models/Perfil.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/models/Recado.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/models/Usuario.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/models/package-info.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/package-info.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/repositories/JackutRepository.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/src/br/ufal/ic/p2/jackut/repositories/package-info.java" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/tests/us1_1.txt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/tests/us1_2.txt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/tests/us2_1.txt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/tests/us2_2.txt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/tests/us3_1.txt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/tests/us3_2.txt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/tests/us4_1.txt" charset="ISO-8859-1" />
+    <file url="file://$PROJECT_DIR$/tests/us4_2.txt" charset="ISO-8859-1" />
+    <file url="PROJECT" charset="ISO-8859-1" />
   </component>
 </project>

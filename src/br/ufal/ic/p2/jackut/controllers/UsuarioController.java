@@ -6,26 +6,26 @@ import br.ufal.ic.p2.jackut.models.Usuario;
 import br.ufal.ic.p2.jackut.repositories.JackutRepository;
 
 /**
- * Controlador respons√°vel pelo gerenciamento do ciclo de vida dos usu√°rios no sistema Jackut.
+ * Controlador respons·vel pelo gerenciamento do ciclo de vida dos usu·rios no sistema Jackut.
  * <p>
- * Centraliza as opera√ß√µes de cria√ß√£o de novas contas, recupera√ß√£o de informa√ß√µes
- * e edi√ß√£o dos atributos do perfil do usu√°rio.
+ * Centraliza as operaÁıes de criaÁ„o de novas contas, recuperaÁ„o de informaÁıes
+ * e ediÁ„o dos atributos do perfil do usu·rio.
  * </p>
  */
 public class UsuarioController {
     /**
-     * Refer√™ncia ao reposit√≥rio central para acesso aos dados de usu√°rios cadastrados
-     * e armazenamento das sess√µes ativas.
+     * ReferÍncia ao repositÛrio central para acesso aos dados de usu·rios cadastrados
+     * e armazenamento das sessıes ativas.
      */
     private final JackutRepository repo = JackutRepository.getInstancia();
 
     /**
-     * Cria uma nova conta de usu√°rio no sistema e a persiste em mem√≥ria.
+     * Cria uma nova conta de usu·rio no sistema e a persiste em memÛria.
      *
-     * @param login O login de acesso √∫nico desejado para a nova conta.
-     * @param senha A senha de autentica√ß√£o do usu√°rio.
-     * @param nome  O nome de exibi√ß√£o do usu√°rio.
-     * @throws ContaJaExisteException Se o login fornecido j√° estiver registrado no sistema.
+     * @param login O login de acesso ˙nico desejado para a nova conta.
+     * @param senha A senha de autenticaÁ„o do usu·rio.
+     * @param nome  O nome de exibiÁ„o do usu·rio.
+     * @throws ContaJaExisteException Se o login fornecido j· estiver registrado no sistema.
      */
     public void criarUsuario(String login, String senha, String nome) throws ContaJaExisteException {
         if(repo.getUsuarios().containsKey(login)){
@@ -36,12 +36,12 @@ public class UsuarioController {
     }
 
     /**
-     * Recupera o valor de um atributo espec√≠fico do perfil de um usu√°rio.
+     * Recupera o valor de um atributo especÌfico do perfil de um usu·rio.
      *
-     * @param login    O login do usu√°rio cujos dados ser√£o consultados.
+     * @param login    O login do usu·rio cujos dados ser„o consultados.
      * @param atributo O nome do atributo desejado.
      * @return Uma {@code String} contendo o valor armazenado no atributo solicitado.
-     * @throws UsuarioNaoCadastradoException  Se o login n√£o corresponder a um usu√°rio v√°lido.
+     * @throws UsuarioNaoCadastradoException  Se o login n„o corresponder a um usu·rio v·lido.
      */
     public String getAtributoUsuario(String login, String atributo) throws UsuarioNaoCadastradoException {
         Usuario usuario = repo.getUsuarios().get(login);
@@ -52,12 +52,12 @@ public class UsuarioController {
     }
 
     /**
-     * Atualiza ou adiciona um novo atributo ao perfil do usu√°rio atualmente logado.
+     * Atualiza ou adiciona um novo atributo ao perfil do usu·rio atualmente logado.
      *
-     * @param idSessao O identificador √∫nico da sess√£o do usu√°rio que est√° editando o perfil.
+     * @param idSessao O identificador ˙nico da sess„o do usu·rio que est· editando o perfil.
      * @param atributo O nome do atributo a ser modificado ou criado.
-     * @param valor    O novo valor que ser√° atribu√≠do a este campo no perfil.
-     * @throws UsuarioNaoCadastradoException Se a sess√£o for inv√°lida ou o usu√°rio n√£o existir.
+     * @param valor    O novo valor que ser· atribuÌdo a este campo no perfil.
+     * @throws UsuarioNaoCadastradoException Se a sess„o for inv·lida ou o usu·rio n„o existir.
      */
     public void editarPerfil(String idSessao, String atributo, String valor) throws UsuarioNaoCadastradoException{
         String login = repo.getSessoesAtivas().get(idSessao);

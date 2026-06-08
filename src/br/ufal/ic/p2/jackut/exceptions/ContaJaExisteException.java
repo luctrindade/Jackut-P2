@@ -1,13 +1,13 @@
 package br.ufal.ic.p2.jackut.exceptions;
 
 /**
- * Constr√≥i a exce√ß√£o com a mensagem se a conta j√° existir.
+ * ConstrÛi a exceÁ„o com a mensagem se a conta j· existir.
  */
 public class ContaJaExisteException extends RuntimeException {
     /**
-     * Cria a exce√ß√£o com a mensagem "Conta com esse nome j√° existe.".
+     * Cria a exceÁ„o com a mensagem "Conta com esse nome j· existe.".
      */
     public ContaJaExisteException() {
-        super("Conta com esse nome j√° existe.");
+        super("Conta com esse nome j· existe.");
     }
 }

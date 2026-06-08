@@ -1,13 +1,13 @@
 package br.ufal.ic.p2.jackut.exceptions;
 
 /**
- * Exce√ß√£o lan√ßada quando um usu√°rio tenta ler um recado, mas sua caixa de entrada est√° vazia.
+ * ExceÁ„o lanÁada quando um usu·rio tenta ler um recado, mas sua caixa de entrada est· vazia.
  */
 public class NaoHaRecadosException extends RuntimeException {
     /**
-     * Cria a exce√ß√£o com a mensagem "N√£o h√° recados.".
+     * Cria a exceÁ„o com a mensagem "N„o h· recados.".
      */
     public NaoHaRecadosException() {
-        super("N√£o h√° recados.");
+        super("N„o h· recados.");
     }
 }
