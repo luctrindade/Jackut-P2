@@ -29,9 +29,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-### JavaDoc ###
-javadoc/
-
 ### db ###
 database.xml
 database.dat
