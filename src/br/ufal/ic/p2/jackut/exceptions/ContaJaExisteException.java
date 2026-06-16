@@ -3,7 +3,7 @@ package br.ufal.ic.p2.jackut.exceptions;
 /**
  * Constrói a exceção com a mensagem se a conta já existir.
  */
-public class ContaJaExisteException extends RuntimeException {
+public class ContaJaExisteException extends Exception {
     /**
      * Exceção com a mensagem "Conta com esse nome já existe.".
      */

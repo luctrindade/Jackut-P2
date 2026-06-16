@@ -1,7 +1,5 @@
 package br.ufal.ic.p2.jackut.repositories;
 
-
-import br.ufal.ic.p2.jackut.models.Recado;
 import br.ufal.ic.p2.jackut.models.Usuario;
 
 import java.io.*;
@@ -22,7 +20,15 @@ public class JackutRepository {
      */
     private static JackutRepository instancia;
 
+    /**
+     * Mapa em memória que armazena todos os usuários cadastrados.
+     * A chave é o login do usuário e o valor é a entidade Usuario correspondente.
+     */
     private final Map<String, Usuario> usuarios;
+    /**
+     * Mapa em memória que gerencia as sessões ativas do sistema.
+     * A chave é o UUID da sessão e o valor é o login do usuário autenticado.
+     */
     private final Map<String, String> sessoesAtivas;
 
     /**
@@ -91,20 +97,55 @@ public class JackutRepository {
     }
 
     /**
-     * Recupera o mapa contendo todos os usuários cadastrados no sistema.
+     * Verifica se um usuário com o login especificado já está cadastrado no sistema.
      *
-     * @return Um {@code Map} contendo os logins como chaves e as entidades {@code Usuario} como valores.
+     * @param login O login único a ser verificado.
+     * @return {@code true} se o usuário existir no repositório, {@code false} caso contrário.
      */
-    public Map<String, Usuario> getUsuarios(){
-        return usuarios;
+    public boolean existeUsuario(String login) {
+        return this.usuarios.containsKey(login);
     }
 
     /**
-     * Recupera o mapa contendo as sessões ativas no momento.
+     * Adiciona um novo usuário ao repositório de dados em memória,
+     * utilizando o login do usuário como chave de armazenamento e busca.
      *
-     * @return Um {@code Map} contendo os IDs das sessões como chaves e os logins autenticados como valores.
+     * @param usuario O objeto {@code Usuario} instanciado a ser guardado no sistema.
      */
-    public Map<String, String> getSessoesAtivas(){
-        return sessoesAtivas;
+    public void adicionarUsuario(Usuario usuario) {
+        this.usuarios.put(usuario.getLogin(), usuario);
+    }
+
+    /**
+     * Recupera um objeto de usuário diretamente do repositório com base no seu login.
+     *
+     * @param login O login único do usuário a ser consultado.
+     * @return A instância de {@code Usuario} correspondente ao login informado,
+     * ou {@code null} se o usuário não for encontrado.
+     */
+    public Usuario buscarUsuario(String login) {
+        return this.usuarios.get(login);
+    }
+
+    /**
+     * Consulta o registro de sessões ativas para recuperar o login associado
+     * a um determinado identificador de sessão.
+     *
+     * @param idSessao O identificador único da sessão.
+     * @return O login do usuário autenticado dono da sessão, ou {@code null} se a sessão não existir.
+     */
+    public String buscarLoginSessao(String idSessao) {
+        return this.sessoesAtivas.get(idSessao);
+    }
+
+    /**
+     * Registra uma nova sessão ativa no sistema, criando um vínculo entre
+     * o identificador da sessão e o login do usuário autenticado.
+     *
+     * @param idSessao O identificador único gerado para esta sessão.
+     * @param login    O login do usuário que acabou de se autenticar.
+     */
+    public void adicionarSessao(String idSessao, String login) {
+        this.sessoesAtivas.put(idSessao, login);
     }
 }

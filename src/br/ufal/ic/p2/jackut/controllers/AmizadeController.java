@@ -34,13 +34,13 @@ public class AmizadeController {
      * @throws UsuarioJaAdicionadoException  Se os usuários já possuírem um vínculo de amizade.
      * @throws ConvitePendenteException      Se um convite já tiver sido enviado anteriormente para este usuário.
      */
-    public void adicionarAmigo(String idSessao, String amigoLogin) throws UsuarioNaoCadastradoException{
-        String meuLogin = repo.getSessoesAtivas().get(idSessao);
+    public void adicionarAmigo(String idSessao, String amigoLogin) throws UsuarioNaoCadastradoException, ConvitePendenteException, UsuarioJaAdicionadoException, AutoAdicaoException {
+        String meuLogin = repo.buscarLoginSessao(idSessao);
         if(meuLogin == null) throw new UsuarioNaoCadastradoException();
         if (meuLogin.equals(amigoLogin)) throw new AutoAdicaoException();
 
-        Usuario eu = repo.getUsuarios().get(meuLogin);
-        Usuario ele = repo.getUsuarios().get(amigoLogin);
+        Usuario eu = repo.buscarUsuario(meuLogin);
+        Usuario ele = repo.buscarUsuario(amigoLogin);
 
         if(ele == null) throw new UsuarioNaoCadastradoException();
         if(eu.ehAmigo(amigoLogin)) throw new UsuarioJaAdicionadoException();
@@ -64,7 +64,7 @@ public class AmizadeController {
      * @return {@code true} se a amizade existir; {@code false} caso a amizade não exista ou o usuário base seja nulo.
      */
     public boolean ehAmigo(String login, String amigoLogin){
-        Usuario usuario = repo.getUsuarios().get(login);
+        Usuario usuario = repo.buscarUsuario(login);
         if(usuario == null) return false;
         return usuario.ehAmigo(amigoLogin);
     }
@@ -77,7 +77,7 @@ public class AmizadeController {
      * @throws UsuarioNaoCadastradoException Se o login informado não estiver cadastrado no sistema.
      */
     public String getAmigos(String login) throws UsuarioNaoCadastradoException{
-        Usuario usuario = repo.getUsuarios().get(login);
+        Usuario usuario = repo.buscarUsuario(login);
         if(usuario == null) throw new UsuarioNaoCadastradoException();
         List<String> listaAmigos = usuario.getAmigos();
         return "{" + String.join(",", listaAmigos) + "}";

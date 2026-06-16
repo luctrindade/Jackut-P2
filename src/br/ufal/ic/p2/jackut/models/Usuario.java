@@ -23,12 +23,30 @@ public class Usuario implements Serializable {
      */
     private static final long serialVersionUID = 1L;
 
+    /**
+     * O login único de acesso do usuário.
+     */
     private final String login;
+    /**
+     * A senha de autenticação da conta.
+     */
     private String senha;
 
+    /**
+     * O perfil do usuário, contendo seus atributos e nome de exibição.
+     */
     private final Perfil perfil;
+    /**
+     * Conjunto de logins para os quais o usuário enviou um convite de amizade pendente.
+     */
     private final Set<String> envioConvites;
+    /**
+     * Lista de logins dos usuários que possuem vínculo de amizade consolidado com o usuário.
+     */
     private final List<String> amigos;
+    /**
+     * Fila cronológica contendo os recados recebidos pelo usuário.
+     */
     private final Queue<Recado> recados;
 
     /**
@@ -41,7 +59,7 @@ public class Usuario implements Serializable {
      * @throws LoginInvalidoException Se o login fornecido for nulo ou estiver em branco.
      * @throws SenhaInvalidaException Se a senha fornecida for nula ou estiver em branco.
      */
-    public Usuario(String login, String senha, String nome) throws LoginInvalidoException{
+    public Usuario(String login, String senha, String nome) throws LoginInvalidoException, SenhaInvalidaException {
         if(login == null || login.trim().isEmpty()){
             throw new LoginInvalidoException();
         }

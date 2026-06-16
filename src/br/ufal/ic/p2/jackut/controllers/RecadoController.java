@@ -30,7 +30,7 @@ public class RecadoController {
      * @throws AutoEnvioRecadoException Se o usuário tentar enviar um recado para o seu próprio login.
      */
     public void enviarRecado(String idSessao, String destLogin, String recado) throws UsuarioNaoCadastradoException, AutoEnvioRecadoException{
-        String remetLogin = repo.getSessoesAtivas().get(idSessao);
+        String remetLogin = repo.buscarLoginSessao(idSessao);
 
         if(remetLogin == null) {
             throw new UsuarioNaoCadastradoException();
@@ -39,7 +39,7 @@ public class RecadoController {
             throw new AutoEnvioRecadoException();
         }
 
-        Usuario dest = repo.getUsuarios().get(destLogin);
+        Usuario dest = repo.buscarUsuario(destLogin);
         if(dest == null) throw  new UsuarioNaoCadastradoException();
         Recado newRecado = new Recado(remetLogin,recado);
         dest.adicionarRecado(newRecado);
@@ -53,10 +53,10 @@ public class RecadoController {
      * @throws NaoHaRecadosException Se a fila de recados do usuário estiver vazia.
      */
     public String lerRecado(String idSessao) throws UsuarioNaoCadastradoException, NaoHaRecadosException{
-        String login = repo.getSessoesAtivas().get(idSessao);
+        String login = repo.buscarLoginSessao(idSessao);
         if(login == null) throw new UsuarioNaoCadastradoException();
 
-        Usuario usuario = repo.getUsuarios().get(login);
+        Usuario usuario = repo.buscarUsuario(login);
         if(usuario == null) throw new UsuarioNaoCadastradoException();
         return usuario.lerRecado();
     }

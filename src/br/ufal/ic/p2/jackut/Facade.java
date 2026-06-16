@@ -48,8 +48,10 @@ public class Facade {
      * @param senha A senha do novo usuário.
      * @param nome  O nome de exibição.
      * @throws ContaJaExisteException Se o login já estiver cadastrado.
+     * @throws SenhaInvalidaException Se a senha fornecida for nula ou estiver vazia.
+     * @throws LoginInvalidoException Se o login fornecido for nulo ou estiver vazio.
      */
-    public void criarUsuario(String login, String senha, String nome) throws ContaJaExisteException {
+    public void criarUsuario(String login, String senha, String nome) throws ContaJaExisteException, SenhaInvalidaException, LoginInvalidoException {
         usuarioController.criarUsuario(login, senha, nome);
     }
 
@@ -60,8 +62,9 @@ public class Facade {
      * @param atributo O nome do atributo desejado.
      * @return O valor do atributo.
      * @throws UsuarioNaoCadastradoException Se o usuário não existir.
+     * @throws AtributoNaoPreenchidoException Se o atributo não existir no perfil.
      */
-    public String getAtributoUsuario(String login, String atributo) throws UsuarioNaoCadastradoException {
+    public String getAtributoUsuario(String login, String atributo) throws UsuarioNaoCadastradoException, AtributoNaoPreenchidoException {
         return usuarioController.getAtributoUsuario(login,atributo);
     }
 
@@ -84,8 +87,9 @@ public class Facade {
      * @param senha A senha de acesso.
      * @return O UUID (identificador único) da sessão gerada.
      * @throws LoginOuSenhaInvalidoException Se as credenciais estiverem incorretas.
+     * @throws LoginInvalidoException Se as credenciais forem nulas ou vazias.
      */
-    public String abrirSessao(String login, String senha) throws LoginOuSenhaInvalidoException {
+    public String abrirSessao(String login, String senha) throws LoginOuSenhaInvalidoException, LoginInvalidoException {
         return autenticacaoController.abrirSessao(login, senha);
     }
 
@@ -95,8 +99,11 @@ public class Facade {
      * @param login O id da sessão do usuário remetente.
      * @param amigo O login do usuário destinatário.
      * @throws UsuarioNaoCadastradoException Se algum dos usuários não for encontrado.
+     * @throws ConvitePendenteException Se já houver um convite enviado para este usuário.
+     * @throws UsuarioJaAdicionadoException Se os usuários já forem amigos.
+     * @throws AutoAdicaoException Se o usuário tentar adicionar a si próprio.
      */
-    public void adicionarAmigo(String login, String amigo) throws UsuarioNaoCadastradoException{
+    public void adicionarAmigo(String login, String amigo) throws UsuarioNaoCadastradoException, ConvitePendenteException, UsuarioJaAdicionadoException, AutoAdicaoException {
         amizadeController.adicionarAmigo(login,amigo);
     }
 

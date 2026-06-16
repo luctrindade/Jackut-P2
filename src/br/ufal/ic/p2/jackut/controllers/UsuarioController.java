@@ -1,7 +1,6 @@
 package br.ufal.ic.p2.jackut.controllers;
 
-import br.ufal.ic.p2.jackut.exceptions.ContaJaExisteException;
-import br.ufal.ic.p2.jackut.exceptions.UsuarioNaoCadastradoException;
+import br.ufal.ic.p2.jackut.exceptions.*;
 import br.ufal.ic.p2.jackut.models.Usuario;
 import br.ufal.ic.p2.jackut.repositories.JackutRepository;
 
@@ -26,13 +25,15 @@ public class UsuarioController {
      * @param senha A senha de autenticação do usuário.
      * @param nome  O nome de exibição do usuário.
      * @throws ContaJaExisteException Se o login fornecido já estiver registrado no sistema.
+     * @throws SenhaInvalidaException Se a senha fornecida não atender aos critérios de segurança ou estiver vazia.
+     * @throws LoginInvalidoException Se o login fornecido for nulo ou vazio.
      */
-    public void criarUsuario(String login, String senha, String nome) throws ContaJaExisteException {
-        if(repo.getUsuarios().containsKey(login)){
+    public void criarUsuario(String login, String senha, String nome) throws ContaJaExisteException, SenhaInvalidaException, LoginInvalidoException {
+        if(repo.existeUsuario(login)){
             throw new ContaJaExisteException();
         }
         Usuario novoUsuario = new Usuario(login,senha,nome);
-        repo.getUsuarios().put(login,novoUsuario);
+        repo.adicionarUsuario(novoUsuario);
     }
 
     /**
@@ -42,9 +43,10 @@ public class UsuarioController {
      * @param atributo O nome do atributo desejado.
      * @return Uma {@code String} contendo o valor armazenado no atributo solicitado.
      * @throws UsuarioNaoCadastradoException  Se o login não corresponder a um usuário válido.
+     * @throws AtributoNaoPreenchidoException Se o atributo solicitado não existir no perfil do usuário.
      */
-    public String getAtributoUsuario(String login, String atributo) throws UsuarioNaoCadastradoException {
-        Usuario usuario = repo.getUsuarios().get(login);
+    public String getAtributoUsuario(String login, String atributo) throws UsuarioNaoCadastradoException, AtributoNaoPreenchidoException {
+        Usuario usuario = repo.buscarUsuario(login);
         if(usuario == null){
             throw new UsuarioNaoCadastradoException();
         }
@@ -60,12 +62,12 @@ public class UsuarioController {
      * @throws UsuarioNaoCadastradoException Se a sessão for inválida ou o usuário não existir.
      */
     public void editarPerfil(String idSessao, String atributo, String valor) throws UsuarioNaoCadastradoException{
-        String login = repo.getSessoesAtivas().get(idSessao);
+        String login = repo.buscarLoginSessao(idSessao);
         if(login == null){
             throw new UsuarioNaoCadastradoException();
         }
 
-        Usuario usuario = repo.getUsuarios().get(login);
+        Usuario usuario = repo.buscarUsuario(login);
         if(usuario == null){
             throw new UsuarioNaoCadastradoException();
         }
