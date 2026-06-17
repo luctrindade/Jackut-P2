@@ -1,9 +1,6 @@
 package br.ufal.ic.p2.jackut;
 
-import br.ufal.ic.p2.jackut.controllers.AmizadeController;
-import br.ufal.ic.p2.jackut.controllers.AutenticacaoController;
-import br.ufal.ic.p2.jackut.controllers.RecadoController;
-import br.ufal.ic.p2.jackut.controllers.UsuarioController;
+import br.ufal.ic.p2.jackut.controllers.*;
 import br.ufal.ic.p2.jackut.exceptions.*;
 import br.ufal.ic.p2.jackut.repositories.JackutRepository;
 
@@ -19,6 +16,7 @@ public class Facade {
     private final UsuarioController usuarioController = new UsuarioController();
     private final AutenticacaoController autenticacaoController = new AutenticacaoController();
     private final AmizadeController amizadeController = new AmizadeController();
+    private final ComunidadeController comunidadeController = new ComunidadeController();
     /** Repositório central (Singleton) de acesso aos dados em memória. */
     private final JackutRepository repo = JackutRepository.getInstancia();
     private final RecadoController recadoController = new RecadoController();
@@ -152,6 +150,76 @@ public class Facade {
      */
     public String lerRecado(String id) throws UsuarioNaoCadastradoException, NaoHaRecadosException{
         return recadoController.lerRecado(id);
+    }
+
+    /**
+     * Delega a criação de uma nova comunidade no sistema.
+     *
+     * @param idSessao  O identificador da sessão ativa do usuário criador.
+     * @param nome      O nome desejado para a comunidade.
+     * @param descricao A descrição da comunidade.
+     * @throws UsuarioNaoCadastradoException Se a sessão do usuário for inválida.
+     * @throws ComunidadeJaExisteException   Se já existir uma comunidade com o mesmo nome.
+     */
+    public void criarComunidade(String idSessao, String nome, String descricao) throws UsuarioNaoCadastradoException, ComunidadeJaExisteException {
+        comunidadeController.criarComunidade(idSessao,nome,descricao);
+    }
+
+    /**
+     * Delega a busca pela descrição de uma comunidade específica.
+     *
+     * @param nome O nome da comunidade consultada.
+     * @return O texto de descrição da comunidade.
+     * @throws ComunidadeNaoExisteException Se a comunidade não for encontrada no sistema.
+     */
+    public String getDescricaoComunidade(String nome) throws ComunidadeNaoExisteException {
+        return comunidadeController.getDescricaoComunidade(nome);
+    }
+
+    /**
+     * Delega a busca pelo dono de uma comunidade específica.
+     *
+     * @param nome O nome da comunidade consultada.
+     * @return O login do dono da comunidade.
+     * @throws ComunidadeNaoExisteException Se a comunidade não for encontrada no sistema.
+     */
+    public String getDonoComunidade(String nome) throws ComunidadeNaoExisteException {
+        return comunidadeController.getDonoComunidade(nome);
+    }
+
+    /**
+     * Delega a busca pela lista de membros de uma comunidade.
+     *
+     * @param nome O nome da comunidade consultada.
+     * @return Uma {@code String} contendo os membros no formato "{membro1,membro2}".
+     * @throws ComunidadeNaoExisteException Se a comunidade não for encontrada no sistema.
+     */
+    public String getMembrosComunidade(String nome) throws ComunidadeNaoExisteException {
+        return comunidadeController.getMembrosComunidade(nome);
+    }
+
+    /**
+     * Delega a adição de um usuário a uma comunidade existente.
+     *
+     * @param idSessao O identificador da sessão ativa do usuário.
+     * @param nome     O nome da comunidade.
+     * @throws UsuarioNaoCadastradoException  Se a sessão for inválida.
+     * @throws ComunidadeNaoExisteException   Se a comunidade não for encontrada.
+     * @throws UsuarioJaNaComunidadeException Se o usuário já pertencer à comunidade.
+     */
+    public void adicionarComunidade(String idSessao, String nome) throws UsuarioJaNaComunidadeException, UsuarioNaoCadastradoException, ComunidadeNaoExisteException {
+        comunidadeController.adicionarComunidade(idSessao,nome);
+    }
+
+    /**
+     * Delega a busca pelas comunidades das quais um usuário participa.
+     *
+     * @param login O login do usuário a ser consultado.
+     * @return A string de comunidades formatada "{comunidade1,comunidade2}".
+     * @throws UsuarioNaoCadastradoException Se o usuário não existir no sistema.
+     */
+    public String getComunidades(String login) throws UsuarioNaoCadastradoException{
+        return comunidadeController.getComunidades(login);
     }
 
     /**

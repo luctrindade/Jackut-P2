@@ -49,6 +49,8 @@ public class Usuario implements Serializable {
      */
     private final Queue<Recado> recados;
 
+    private final List<String> comunidades;
+
     /**
      * Constrói e inicializa um novo Usuário no sistema.
      * Realiza a validação básica das credenciais antes de instanciar as coleções internas.
@@ -73,6 +75,7 @@ public class Usuario implements Serializable {
         this.envioConvites = new HashSet<>();
         this.amigos = new ArrayList<>();
         this.recados = new LinkedList<>();
+        this.comunidades = new ArrayList<>();
     }
 
     /**
@@ -191,5 +194,13 @@ public class Usuario implements Serializable {
             throw new NaoHaRecadosException();
         }
         return this.recados.poll().getTexto();
+    }
+
+    public void adicionarComunidade(String nome){
+        this.comunidades.add(nome);
+    }
+
+    public List<String> getComunidades(){
+        return Collections.unmodifiableList(this.comunidades);
     }
 }
