@@ -20,6 +20,7 @@ public class Facade {
     /** Repositório central (Singleton) de acesso aos dados em memória. */
     private final JackutRepository repo = JackutRepository.getInstancia();
     private final RecadoController recadoController = new RecadoController();
+    private final MensagemController mensagemController = new MensagemController();
 
     /**
      * Construtor da Facade.
@@ -220,6 +221,23 @@ public class Facade {
      */
     public String getComunidades(String login) throws UsuarioNaoCadastradoException{
         return comunidadeController.getComunidades(login);
+    }
+
+    /**
+     * Delega o envio de uma mensagem para uma comunidade.
+     *
+     * @param idSessao       O identificador da sessão do remetente.
+     * @param nomeComunidade O nome da comunidade destino.
+     * @param mensagem       O texto da mensagem.
+     * @throws UsuarioNaoCadastradoException Se a sessão for inválida.
+     * @throws ComunidadeNaoExisteException  Se a comunidade não for encontrada.
+     */
+    public void enviarMensagem(String idSessao, String nomeComunidade, String mensagem) throws UsuarioNaoCadastradoException, ComunidadeNaoExisteException {
+        mensagemController.enviarMensagem(idSessao,nomeComunidade,mensagem);
+    }
+
+    public String lerMensagem(String idSessao) throws NaoHaMensagensException, UsuarioNaoCadastradoException {
+        return mensagemController.lerMensagem(idSessao);
     }
 
     /**

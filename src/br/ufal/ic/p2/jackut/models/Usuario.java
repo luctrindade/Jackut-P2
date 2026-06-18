@@ -1,9 +1,6 @@
 package br.ufal.ic.p2.jackut.models;
 
-import br.ufal.ic.p2.jackut.exceptions.AtributoNaoPreenchidoException;
-import br.ufal.ic.p2.jackut.exceptions.LoginInvalidoException;
-import br.ufal.ic.p2.jackut.exceptions.NaoHaRecadosException;
-import br.ufal.ic.p2.jackut.exceptions.SenhaInvalidaException;
+import br.ufal.ic.p2.jackut.exceptions.*;
 
 import java.io.Serializable;
 import java.util.*;
@@ -52,6 +49,11 @@ public class Usuario implements Serializable {
     private final List<String> comunidades;
 
     /**
+     * Fila cronológica (FIFO) contendo as mensagens de comunidades recebidas.
+     */
+    private final Queue<Mensagem> mensagens;
+
+    /**
      * Constrói e inicializa um novo Usuário no sistema.
      * Realiza a validação básica das credenciais antes de instanciar as coleções internas.
      *
@@ -76,6 +78,7 @@ public class Usuario implements Serializable {
         this.amigos = new ArrayList<>();
         this.recados = new LinkedList<>();
         this.comunidades = new ArrayList<>();
+        this.mensagens = new LinkedList<>();
     }
 
     /**
@@ -202,5 +205,27 @@ public class Usuario implements Serializable {
 
     public List<String> getComunidades(){
         return Collections.unmodifiableList(this.comunidades);
+    }
+
+    /**
+     * Insere uma nova mensagem de comunidade no final da fila de leitura do usuário.
+     *
+     * @param mensagem O objeto Mensagem recebido.
+     */
+    public void adicionarMensagem(Mensagem mensagem){
+        this.mensagens.add(mensagem);
+    }
+
+    /**
+     * Lê a mensagem mais antiga da caixa de entrada, removendo-a da fila.
+     *
+     * @return O conteúdo em texto da mensagem.
+     * @throws NaoHaMensagensException Se o usuário não possuir nenhuma mensagem na fila.
+     */
+    public String lerMensagem() throws NaoHaMensagensException {
+        if(this.mensagens.isEmpty()){
+            throw new NaoHaMensagensException();
+        }
+        return this.mensagens.poll().getTexto();
     }
 }
