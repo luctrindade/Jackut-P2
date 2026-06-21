@@ -5,6 +5,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+/**
+ * Entidade que representa uma comunidade no sistema Jackut.
+ */
 public class Comunidade implements Serializable {
 
     /** Identificador único de versão da classe para serialização. */

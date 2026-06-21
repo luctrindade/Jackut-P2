@@ -191,6 +191,7 @@ public class JackutRepository {
 
     /**
      * Retorna uma coleção com todos os usuários cadastrados no sistema.
+     * @return Uma coleção imutável de usuários.
      */
     public java.util.Collection<Usuario> getTodosUsuarios() {
         return java.util.Collections.unmodifiableCollection(this.usuarios.values());
@@ -198,6 +199,7 @@ public class JackutRepository {
 
     /**
      * Retorna uma coleção com todas as comunidades cadastradas no sistema.
+     * @return Uma coleção imutável de comunidades.
      */
     public java.util.Collection<Comunidade> getTodasComunidades() {
         return java.util.Collections.unmodifiableCollection(this.comunidades.values());

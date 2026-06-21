@@ -102,6 +102,7 @@ public class Facade {
      * @throws ConvitePendenteException Se já houver um convite enviado para este usuário.
      * @throws UsuarioJaAdicionadoException Se os usuários já forem amigos.
      * @throws AutoAdicaoException Se o usuário tentar adicionar a si próprio.
+     * @throws InimigoException Se o usuário alvo tiver bloqueado o remetente.
      */
     public void adicionarAmigo(String login, String amigo) throws UsuarioNaoCadastradoException, ConvitePendenteException, UsuarioJaAdicionadoException, AutoAdicaoException, InimigoException {
         amizadeController.adicionarAmigo(login,amigo);
@@ -137,6 +138,7 @@ public class Facade {
      * @param recado       O texto da mensagem.
      * @throws UsuarioNaoCadastradoException Se a sessão ou o destinatário forem inválidos.
      * @throws AutoEnvioRecadoException      Se o usuário tentar enviar um recado para si mesmo.
+     * @throws InimigoException Se o usuário alvo tiver bloqueado o remetente.
      */
     public void enviarRecado(String id, String destinatario, String recado) throws UsuarioNaoCadastradoException, AutoEnvioRecadoException, InimigoException {
         recadoController.enviarRecado(id, destinatario, recado);

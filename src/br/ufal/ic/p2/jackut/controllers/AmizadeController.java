@@ -20,6 +20,11 @@ public class AmizadeController {
     private final JackutRepository repo = JackutRepository.getInstancia();
 
     /**
+     * Construtor padrão do controlador de amizade.
+     */
+    public AmizadeController(){
+    }
+    /**
      * Adiciona um amigo ou envia um convite de amizade.
      * Se o usuário destino já houver enviado um convite para o remetente, a amizade
      * é consolidada imediatamente. Caso contrário, um convite pendente é registrado.
@@ -30,6 +35,7 @@ public class AmizadeController {
      * @throws AutoAdicaoException           Se o usuário tentar adicionar a si próprio.
      * @throws UsuarioJaAdicionadoException  Se os usuários já possuírem um vínculo de amizade.
      * @throws ConvitePendenteException      Se um convite já tiver sido enviado anteriormente para este usuário.
+     * @throws InimigoException Se o usuário alvo tiver bloqueado o remetente.
      */
     public void adicionarAmigo(String idSessao, String amigoLogin) throws UsuarioNaoCadastradoException, ConvitePendenteException, UsuarioJaAdicionadoException, AutoAdicaoException, InimigoException {
         String meuLogin = repo.buscarLoginSessao(idSessao);

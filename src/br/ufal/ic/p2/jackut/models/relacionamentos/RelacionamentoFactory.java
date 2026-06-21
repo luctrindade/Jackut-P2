@@ -14,6 +14,12 @@ public class RelacionamentoFactory {
     private RelacionamentoFactory() {
     }
 
+    /**
+     * Instancia a estratégia de relacionamento correspondente ao tipo solicitado.
+     *
+     * @param tipo O tipo de relacionamento.
+     * @return A estratégia de relacionamento.
+     */
     public static RelacionamentoStrategy criar(String tipo){
         switch (tipo.toLowerCase()) {
             case "idolo":

@@ -22,6 +22,11 @@ public class ComunidadeController {
     private final JackutRepository repo = JackutRepository.getInstancia();
 
     /**
+     * Construtor padrão do controlador de comunidade.
+     */
+    public ComunidadeController(){
+    }
+    /**
      * Cria uma nova comunidade no sistema e define o usuário logado como dono e primeiro membro.
      * O criador é automaticamente vinculado à comunidade em seu perfil.
      *

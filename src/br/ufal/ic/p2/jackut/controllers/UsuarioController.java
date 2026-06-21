@@ -20,6 +20,12 @@ public class UsuarioController {
     private final JackutRepository repo = JackutRepository.getInstancia();
 
     /**
+     * Construtor padrão do controlador do usuário.
+     */
+    public UsuarioController(){
+    }
+
+    /**
      * Cria uma nova conta de usuário no sistema e a persiste em memória.
      *
      * @param login O login de acesso único desejado para a nova conta.

@@ -18,6 +18,11 @@ public class MensagemController {
     private final JackutRepository repo = JackutRepository.getInstancia();
 
     /**
+     * Construtor padrão do controlador de mensagem.
+     */
+    public MensagemController(){
+    }
+    /**
      * Envia uma mensagem para uma comunidade. Todos os membros atuais da comunidade
      * recebem uma cópia desta mensagem em suas caixas de entrada.
      *
