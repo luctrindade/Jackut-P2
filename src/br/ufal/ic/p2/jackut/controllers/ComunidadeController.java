@@ -62,13 +62,20 @@ public class ComunidadeController {
 
         Usuario usuario = repo.buscarUsuario(login);
         if(usuario == null) throw new UsuarioNaoCadastradoException();
-        if(comunidade.getMembros().contains(login)){
+        if(comunidade.jaPossuiMembro(login)){
             throw new UsuarioJaNaComunidadeException();
         }
         comunidade.adicionarMembro(login);
         usuario.adicionarComunidade(nome);
     }
 
+    /**
+     * Recupera a lista de comunidades às quais um usuário pertence e a formata como uma string delimitada por chaves.
+     *
+     * @param login O login do usuário cujas comunidades serão listadas.
+     * @return Uma {@code String} contendo os nomes das comunidades no formato "{comunidade1,comunidade2}".
+     * @throws UsuarioNaoCadastradoException Se o login informado não estiver cadastrado no sistema.
+     */
     public String getComunidades(String login) throws UsuarioNaoCadastradoException {
         Usuario usuario = repo.buscarUsuario(login);
         if(usuario == null) throw new UsuarioNaoCadastradoException();

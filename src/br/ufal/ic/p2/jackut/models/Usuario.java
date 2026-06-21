@@ -1,6 +1,7 @@
 package br.ufal.ic.p2.jackut.models;
 
 import br.ufal.ic.p2.jackut.exceptions.*;
+import br.ufal.ic.p2.jackut.models.relacionamentos.RelacionamentoStrategy;
 
 import java.io.Serializable;
 import java.util.*;
@@ -46,12 +47,27 @@ public class Usuario implements Serializable {
      */
     private final Queue<Recado> recados;
 
+    /**
+     * Lista com os nomes das comunidades das quais o usuário é membro.
+     */
     private final List<String> comunidades;
 
     /**
      * Fila cronológica (FIFO) contendo as mensagens de comunidades recebidas.
      */
     private final Queue<Mensagem> mensagens;
+
+    /** Conjunto de logins que o usuário declarou como ídolos. */
+    private final Set<String> idolos;
+
+    /** Conjunto de logins de usuários que são fãs do usuário. */
+    private final Set<String> fas;
+
+    /** Conjunto de logins que o usuário paquera. */
+    private final Set<String> paqueras;
+
+    /** Conjunto de logins que o usuário declarou como inimigos. */
+    private final Set<String> inimigos;
 
     /**
      * Constrói e inicializa um novo Usuário no sistema.
@@ -79,6 +95,10 @@ public class Usuario implements Serializable {
         this.recados = new LinkedList<>();
         this.comunidades = new ArrayList<>();
         this.mensagens = new LinkedList<>();
+        this.idolos = new HashSet<>();
+        this.fas = new HashSet<>();
+        this.paqueras = new HashSet<>();
+        this.inimigos = new HashSet<>();
     }
 
     /**
@@ -199,10 +219,20 @@ public class Usuario implements Serializable {
         return this.recados.poll().getTexto();
     }
 
+    /**
+     * Adiciona o nome de uma comunidade à lista de participações do usuário.
+     *
+     * @param nome O nome da comunidade a ser adicionada.
+     */
     public void adicionarComunidade(String nome){
         this.comunidades.add(nome);
     }
 
+    /**
+     * Recupera a lista de comunidades do usuário de forma segura.
+     *
+     * @return Uma {@code List} não modificável contendo os nomes das comunidades.
+     */
     public List<String> getComunidades(){
         return Collections.unmodifiableList(this.comunidades);
     }
@@ -227,5 +257,135 @@ public class Usuario implements Serializable {
             throw new NaoHaMensagensException();
         }
         return this.mensagens.poll().getTexto();
+    }
+
+    /**
+     * Delega a consolidação de um novo relacionamento para a estratégia específica.
+     *
+     * @param alvo       O usuário alvo do relacionamento.
+     * @param estrategia A regra de negócio (Strategy) a ser aplicada.
+     */
+    public void estabelecerRelacionamento(Usuario alvo, RelacionamentoStrategy estrategia) {
+        estrategia.estabelecerVinculo(this, alvo);
+    }
+
+    /**
+     * Registra um novo ídolo para o usuário.
+     * @param login O login do usuário que será o ídolo.
+     */
+    public void registrarIdolo(String login) {
+        this.idolos.add(login);
+    }
+
+    /**
+     * Verifica se o usuário é fã do login especificado.
+     * @param login O login do ídolo procurado.
+     * @return {@code true} se o usuário possuir este ídolo, {@code false} caso contrário.
+     */
+    public boolean temIdolo(String login) {
+        return this.idolos.contains(login);
+    }
+
+    /**
+     * Adiciona um novo fã à lista do usuário.
+     * @param login O login do fã a ser adicionado.
+     */
+    public void registrarFa(String login) {
+        this.fas.add(login);
+    }
+
+    /**
+     * Retorna a lista de fãs formatada para leitura.
+     * @return Uma lista contendo os logins dos fãs.
+     */
+    public List<String> getFas() {
+        return new ArrayList<>(this.fas);
+    }
+
+    /**
+     * Registro de um novo paquera de forma privada.
+     * @param login O login do usuário paquerado.
+     */
+    public void registrarPaquera(String login) {
+        this.paqueras.add(login);
+    }
+
+    /**
+     * Verifica se o login especificado está na lista de paqueras do usuário.
+     * @param login O login do possível paquera.
+     * @return {@code true} se o usuário paquera o login informado, {@code false} caso contrário.
+     */
+    public boolean ehPaquera(String login) {
+        return this.paqueras.contains(login);
+    }
+
+    /**
+     * Retorna a lista contendo todos os paqueras do usuário.
+     * @return Uma lista com os logins dos paqueras.
+     */
+    public List<String> getPaqueras() {
+        return new ArrayList<>(this.paqueras);
+    }
+
+    /**
+     * Registro de uma declaração de inimizade.
+     * @param login O login do usuário declarado como inimigo.
+     */
+    public void registrarInimigo(String login) {
+        this.inimigos.add(login);
+    }
+
+    /**
+     * Verifica se o usuário declarou o login especificado como inimigo.
+     * @param login O login do possível inimigo.
+     * @return {@code true} se o login for considerado inimigo, {@code false} caso contrário.
+     */
+    public boolean ehInimigo(String login) {
+        return this.inimigos.contains(login);
+    }
+
+    /**
+     * Recupera o nome de exibição do usuário diretamente do perfil.
+     *
+     * @return O nome do usuário.
+     */
+    public String getNome() {
+        try {
+            return this.perfil.getAtributo("nome");
+        } catch (AtributoNaoPreenchidoException e) {
+            return this.login;
+        }
+    }
+
+    /**
+     * Varre todas as listas de relacionamento do usuário e apaga qualquer
+     * registro associado ao login alvo.
+     *
+     * @param login O login do usuário que está sendo deletado do sistema.
+     */
+    public void apagarRegistrosDe(String login) {
+        this.amigos.remove(login);
+        this.idolos.remove(login);
+        this.fas.remove(login);
+        this.paqueras.remove(login);
+        this.inimigos.remove(login);
+    }
+
+    /**
+     * Remove da caixa de entrada todos os recados cujo remetente seja o usuário deletado.
+     *
+     * @param remetenteLogin O login do remetente a ser filtrado.
+     */
+    public void removerRecadosDe(String remetenteLogin) {
+        this.recados.removeIf(recado -> recado.getRemetente().equals(remetenteLogin));
+    }
+
+    /**
+     * Remove uma comunidade da lista de participações do usuário.
+     *
+     * @param nomeComunidade O nome da comunidade a ser removida.
+     */
+    public void removerComunidade(String nomeComunidade) {
+        this.comunidades.remove(nomeComunidade);
     }
 }

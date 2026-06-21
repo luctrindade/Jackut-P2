@@ -10,7 +10,7 @@ public class Comunidade implements Serializable {
     /** Identificador único de versão da classe para serialização. */
     private static final long serialVersionUID = 1L;
 
-    /** Nome único da comunidade, atuando como chave primária. */
+    /** Nome único da comunidade, atua como chave primária. */
     private String nome ;
 
     /** Descrição do propósito ou tema da comunidade. */
@@ -74,11 +74,30 @@ public class Comunidade implements Serializable {
     }
 
     /**
+     * Verifica se um determinado usuário já faz parte da comunidade.
+     *
+     * @param login O login do usuário a ser verificado.
+     * @return {@code true} se o usuário for membro; {@code false} caso contrário.
+     */
+    public boolean jaPossuiMembro(String login) {
+        return this.membros.contains(login);
+    }
+
+    /**
      * Adiciona um novo membro à lista da comunidade.
      *
      * @param login O login do usuário a ser adicionado.
      */
     public void adicionarMembro(String login){
         this.membros.add(login);
+    }
+
+    /**
+     * Remove um membro da lista da comunidade.
+     *
+     * @param login O login do membro a ser removido.
+     */
+    public void removerMembro(String login) {
+        this.membros.remove(login);
     }
 }

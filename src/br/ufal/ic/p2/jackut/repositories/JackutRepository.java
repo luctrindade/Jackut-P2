@@ -188,4 +188,37 @@ public class JackutRepository {
     public Comunidade buscarComunidade(String nome){
         return this.comunidades.get(nome);
     }
+
+    /**
+     * Retorna uma coleção com todos os usuários cadastrados no sistema.
+     */
+    public java.util.Collection<Usuario> getTodosUsuarios() {
+        return java.util.Collections.unmodifiableCollection(this.usuarios.values());
+    }
+
+    /**
+     * Retorna uma coleção com todas as comunidades cadastradas no sistema.
+     */
+    public java.util.Collection<Comunidade> getTodasComunidades() {
+        return java.util.Collections.unmodifiableCollection(this.comunidades.values());
+    }
+
+    /**
+     * Remove um usuário e suas sessões ativas do repositório central.
+     *
+     * @param login O login do usuário a ser deletado.
+     */
+    public void removerUsuario(String login) {
+        this.usuarios.remove(login);
+        this.sessoesAtivas.values().removeIf(l -> l.equals(login));
+    }
+
+    /**
+     * Remove uma comunidade do repositório central.
+     *
+     * @param nome O nome da comunidade a ser deletada.
+     */
+    public void removerComunidade(String nome) {
+        this.comunidades.remove(nome);
+    }
 }

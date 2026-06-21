@@ -1,6 +1,7 @@
 package br.ufal.ic.p2.jackut.controllers;
 
 import br.ufal.ic.p2.jackut.exceptions.AutoEnvioRecadoException;
+import br.ufal.ic.p2.jackut.exceptions.InimigoException;
 import br.ufal.ic.p2.jackut.exceptions.NaoHaRecadosException;
 import br.ufal.ic.p2.jackut.exceptions.UsuarioNaoCadastradoException;
 import br.ufal.ic.p2.jackut.models.Recado;
@@ -29,7 +30,7 @@ public class RecadoController {
      * @throws UsuarioNaoCadastradoException Se o remetente ou o destinatário não existirem no sistema.
      * @throws AutoEnvioRecadoException Se o usuário tentar enviar um recado para o seu próprio login.
      */
-    public void enviarRecado(String idSessao, String destLogin, String recado) throws UsuarioNaoCadastradoException, AutoEnvioRecadoException{
+    public void enviarRecado(String idSessao, String destLogin, String recado) throws UsuarioNaoCadastradoException, AutoEnvioRecadoException, InimigoException {
         String remetLogin = repo.buscarLoginSessao(idSessao);
 
         if(remetLogin == null) {
@@ -41,6 +42,9 @@ public class RecadoController {
 
         Usuario dest = repo.buscarUsuario(destLogin);
         if(dest == null) throw  new UsuarioNaoCadastradoException();
+        if (dest.ehInimigo(remetLogin)) {
+            throw new InimigoException(dest.getNome());
+        }
         Recado newRecado = new Recado(remetLogin,recado);
         dest.adicionarRecado(newRecado);
     }

@@ -1,6 +1,7 @@
 package br.ufal.ic.p2.jackut.controllers;
 
 import br.ufal.ic.p2.jackut.exceptions.*;
+import br.ufal.ic.p2.jackut.models.Comunidade;
 import br.ufal.ic.p2.jackut.models.Usuario;
 import br.ufal.ic.p2.jackut.repositories.JackutRepository;
 
@@ -72,5 +73,44 @@ public class UsuarioController {
             throw new UsuarioNaoCadastradoException();
         }
         usuario.setAtributo(atributo,valor);
+    }
+
+    /**
+     * Remove permanentemente a conta de um usuário do sistema.
+     * Limpar relacionamentos, recados enviados
+     * e destruir as comunidades geridas pelo usuário.
+     *
+     * @param idSessao O identificador da sessão ativa do usuário a ser deletado.
+     * @throws UsuarioNaoCadastradoException Se a sessão for inválida.
+     */
+    public void removerUsuario(String idSessao) throws UsuarioNaoCadastradoException {
+        String login = repo.buscarLoginSessao(idSessao);
+        if (login == null) throw new UsuarioNaoCadastradoException();
+
+        for (Usuario outroUsuario : repo.getTodosUsuarios()) {
+            if (!outroUsuario.getLogin().equals(login)) {
+                outroUsuario.apagarRegistrosDe(login);
+                outroUsuario.removerRecadosDe(login);
+            }
+        }
+
+        java.util.List<Comunidade> todasComunidades =
+                new java.util.ArrayList<>(repo.getTodasComunidades());
+
+        for (Comunidade comunidade : todasComunidades) {
+            if (comunidade.getDono().equals(login)) {
+                for (String membroLogin : comunidade.getMembros()) {
+                    br.ufal.ic.p2.jackut.models.Usuario membro = repo.buscarUsuario(membroLogin);
+                    if (membro != null) {
+                        membro.removerComunidade(comunidade.getNome());
+                    }
+                }
+                repo.removerComunidade(comunidade.getNome());
+            } else {
+                comunidade.removerMembro(login);
+            }
+        }
+
+        repo.removerUsuario(login);
     }
 }
