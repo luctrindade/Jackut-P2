@@ -20,6 +20,11 @@ public class AutenticacaoController {
     private final JackutRepository repo = JackutRepository.getInstancia();
 
     /**
+     * Construtor padrão do controlador de autenticação.
+     */
+    public AutenticacaoController(){
+    }
+    /**
      * Autentica um usuário no sistema utilizando seu login e senha.
      * Em caso de sucesso, gera um identificador único (UUID) para a sessão e a registra no sistema.
      *

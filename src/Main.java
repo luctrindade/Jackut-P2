@@ -5,8 +5,15 @@ import easyaccept.EasyAccept;
  * Os Arquivos para os testes estão localizados na pasta `tests`.
  */
 public class Main{
+
+    /**
+     * Construtor padrão.
+     */
+    private Main() {}
+
     /**
      * Entrada de execução dos scripts de teste EasyAccept.
+     * @param args Argumentos de linha de comando.
      */
     public static void main(String[] args){
         EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us1_1.txt"});
@@ -17,5 +24,16 @@ public class Main{
         EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us3_2.txt"});
         EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us4_1.txt"});
         EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us4_2.txt"});
+        EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us5_1.txt"});
+        EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us5_2.txt"});
+        EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us6_1.txt"});
+        EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us6_2.txt"});
+        EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us7_1.txt"});
+        EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us7_2.txt"});
+        EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us8_1.txt"});
+        EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us8_2.txt"});
+        EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us9_1.txt"});
+        EasyAccept.main(new String[]{"br.ufal.ic.p2.jackut.Facade", "tests/us9_2.txt"});
+
     }
 }

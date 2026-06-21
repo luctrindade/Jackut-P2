@@ -1,9 +1,6 @@
 package br.ufal.ic.p2.jackut.controllers;
 
-import br.ufal.ic.p2.jackut.exceptions.AutoAdicaoException;
-import br.ufal.ic.p2.jackut.exceptions.ConvitePendenteException;
-import br.ufal.ic.p2.jackut.exceptions.UsuarioJaAdicionadoException;
-import br.ufal.ic.p2.jackut.exceptions.UsuarioNaoCadastradoException;
+import br.ufal.ic.p2.jackut.exceptions.*;
 import br.ufal.ic.p2.jackut.models.Usuario;
 import br.ufal.ic.p2.jackut.repositories.JackutRepository;
 
@@ -23,6 +20,11 @@ public class AmizadeController {
     private final JackutRepository repo = JackutRepository.getInstancia();
 
     /**
+     * Construtor padrão do controlador de amizade.
+     */
+    public AmizadeController(){
+    }
+    /**
      * Adiciona um amigo ou envia um convite de amizade.
      * Se o usuário destino já houver enviado um convite para o remetente, a amizade
      * é consolidada imediatamente. Caso contrário, um convite pendente é registrado.
@@ -33,8 +35,9 @@ public class AmizadeController {
      * @throws AutoAdicaoException           Se o usuário tentar adicionar a si próprio.
      * @throws UsuarioJaAdicionadoException  Se os usuários já possuírem um vínculo de amizade.
      * @throws ConvitePendenteException      Se um convite já tiver sido enviado anteriormente para este usuário.
+     * @throws InimigoException Se o usuário alvo tiver bloqueado o remetente.
      */
-    public void adicionarAmigo(String idSessao, String amigoLogin) throws UsuarioNaoCadastradoException, ConvitePendenteException, UsuarioJaAdicionadoException, AutoAdicaoException {
+    public void adicionarAmigo(String idSessao, String amigoLogin) throws UsuarioNaoCadastradoException, ConvitePendenteException, UsuarioJaAdicionadoException, AutoAdicaoException, InimigoException {
         String meuLogin = repo.buscarLoginSessao(idSessao);
         if(meuLogin == null) throw new UsuarioNaoCadastradoException();
         if (meuLogin.equals(amigoLogin)) throw new AutoAdicaoException();
@@ -45,6 +48,10 @@ public class AmizadeController {
         if(ele == null) throw new UsuarioNaoCadastradoException();
         if(eu.ehAmigo(amigoLogin)) throw new UsuarioJaAdicionadoException();
         if(eu.jaEnviouConvitePara(amigoLogin)) throw new ConvitePendenteException();
+
+        if (ele.ehInimigo(meuLogin)) {
+            throw new InimigoException(ele.getNome());
+        }
 
         if(ele.jaEnviouConvitePara(meuLogin)){
             eu.adicionarAmigo(amigoLogin);

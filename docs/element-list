@@ -3,4 +3,5 @@ br.ufal.ic.p2.jackut
 br.ufal.ic.p2.jackut.controllers
 br.ufal.ic.p2.jackut.exceptions
 br.ufal.ic.p2.jackut.models
+br.ufal.ic.p2.jackut.models.relacionamentos
 br.ufal.ic.p2.jackut.repositories

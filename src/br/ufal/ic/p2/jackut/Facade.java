@@ -1,9 +1,6 @@
 package br.ufal.ic.p2.jackut;
 
-import br.ufal.ic.p2.jackut.controllers.AmizadeController;
-import br.ufal.ic.p2.jackut.controllers.AutenticacaoController;
-import br.ufal.ic.p2.jackut.controllers.RecadoController;
-import br.ufal.ic.p2.jackut.controllers.UsuarioController;
+import br.ufal.ic.p2.jackut.controllers.*;
 import br.ufal.ic.p2.jackut.exceptions.*;
 import br.ufal.ic.p2.jackut.repositories.JackutRepository;
 
@@ -19,9 +16,12 @@ public class Facade {
     private final UsuarioController usuarioController = new UsuarioController();
     private final AutenticacaoController autenticacaoController = new AutenticacaoController();
     private final AmizadeController amizadeController = new AmizadeController();
+    private final ComunidadeController comunidadeController = new ComunidadeController();
     /** Repositório central (Singleton) de acesso aos dados em memória. */
     private final JackutRepository repo = JackutRepository.getInstancia();
     private final RecadoController recadoController = new RecadoController();
+    private final MensagemController mensagemController = new MensagemController();
+    private final RelacionamentoController relacionamentoController = new RelacionamentoController();
 
     /**
      * Construtor da Facade.
@@ -102,8 +102,9 @@ public class Facade {
      * @throws ConvitePendenteException Se já houver um convite enviado para este usuário.
      * @throws UsuarioJaAdicionadoException Se os usuários já forem amigos.
      * @throws AutoAdicaoException Se o usuário tentar adicionar a si próprio.
+     * @throws InimigoException Se o usuário alvo tiver bloqueado o remetente.
      */
-    public void adicionarAmigo(String login, String amigo) throws UsuarioNaoCadastradoException, ConvitePendenteException, UsuarioJaAdicionadoException, AutoAdicaoException {
+    public void adicionarAmigo(String login, String amigo) throws UsuarioNaoCadastradoException, ConvitePendenteException, UsuarioJaAdicionadoException, AutoAdicaoException, InimigoException {
         amizadeController.adicionarAmigo(login,amigo);
     }
 
@@ -137,8 +138,9 @@ public class Facade {
      * @param recado       O texto da mensagem.
      * @throws UsuarioNaoCadastradoException Se a sessão ou o destinatário forem inválidos.
      * @throws AutoEnvioRecadoException      Se o usuário tentar enviar um recado para si mesmo.
+     * @throws InimigoException Se o usuário alvo tiver bloqueado o remetente.
      */
-    public void enviarRecado(String id, String destinatario, String recado) throws UsuarioNaoCadastradoException, AutoEnvioRecadoException {
+    public void enviarRecado(String id, String destinatario, String recado) throws UsuarioNaoCadastradoException, AutoEnvioRecadoException, InimigoException {
         recadoController.enviarRecado(id, destinatario, recado);
     }
 
@@ -152,6 +154,196 @@ public class Facade {
      */
     public String lerRecado(String id) throws UsuarioNaoCadastradoException, NaoHaRecadosException{
         return recadoController.lerRecado(id);
+    }
+
+    /**
+     * Delega a criação de uma nova comunidade no sistema.
+     *
+     * @param idSessao  O identificador da sessão ativa do usuário criador.
+     * @param nome      O nome desejado para a comunidade.
+     * @param descricao A descrição da comunidade.
+     * @throws UsuarioNaoCadastradoException Se a sessão do usuário for inválida.
+     * @throws ComunidadeJaExisteException   Se já existir uma comunidade com o mesmo nome.
+     */
+    public void criarComunidade(String idSessao, String nome, String descricao) throws UsuarioNaoCadastradoException, ComunidadeJaExisteException {
+        comunidadeController.criarComunidade(idSessao,nome,descricao);
+    }
+
+    /**
+     * Delega a busca pela descrição de uma comunidade específica.
+     *
+     * @param nome O nome da comunidade consultada.
+     * @return O texto de descrição da comunidade.
+     * @throws ComunidadeNaoExisteException Se a comunidade não for encontrada no sistema.
+     */
+    public String getDescricaoComunidade(String nome) throws ComunidadeNaoExisteException {
+        return comunidadeController.getDescricaoComunidade(nome);
+    }
+
+    /**
+     * Delega a busca pelo dono de uma comunidade específica.
+     *
+     * @param nome O nome da comunidade consultada.
+     * @return O login do dono da comunidade.
+     * @throws ComunidadeNaoExisteException Se a comunidade não for encontrada no sistema.
+     */
+    public String getDonoComunidade(String nome) throws ComunidadeNaoExisteException {
+        return comunidadeController.getDonoComunidade(nome);
+    }
+
+    /**
+     * Delega a busca pela lista de membros de uma comunidade.
+     *
+     * @param nome O nome da comunidade consultada.
+     * @return Uma {@code String} contendo os membros no formato "{membro1,membro2}".
+     * @throws ComunidadeNaoExisteException Se a comunidade não for encontrada no sistema.
+     */
+    public String getMembrosComunidade(String nome) throws ComunidadeNaoExisteException {
+        return comunidadeController.getMembrosComunidade(nome);
+    }
+
+    /**
+     * Delega a adição de um usuário a uma comunidade existente.
+     *
+     * @param idSessao O identificador da sessão ativa do usuário.
+     * @param nome     O nome da comunidade.
+     * @throws UsuarioNaoCadastradoException  Se a sessão for inválida.
+     * @throws ComunidadeNaoExisteException   Se a comunidade não for encontrada.
+     * @throws UsuarioJaNaComunidadeException Se o usuário já pertencer à comunidade.
+     */
+    public void adicionarComunidade(String idSessao, String nome) throws UsuarioJaNaComunidadeException, UsuarioNaoCadastradoException, ComunidadeNaoExisteException {
+        comunidadeController.adicionarComunidade(idSessao,nome);
+    }
+
+    /**
+     * Delega a busca pelas comunidades das quais um usuário participa.
+     *
+     * @param login O login do usuário a ser consultado.
+     * @return A string de comunidades formatada "{comunidade1,comunidade2}".
+     * @throws UsuarioNaoCadastradoException Se o usuário não existir no sistema.
+     */
+    public String getComunidades(String login) throws UsuarioNaoCadastradoException{
+        return comunidadeController.getComunidades(login);
+    }
+
+    /**
+     * Delega o envio de uma mensagem para uma comunidade.
+     *
+     * @param idSessao       O identificador da sessão do remetente.
+     * @param nomeComunidade O nome da comunidade destino.
+     * @param mensagem       O texto da mensagem.
+     * @throws UsuarioNaoCadastradoException Se a sessão for inválida.
+     * @throws ComunidadeNaoExisteException  Se a comunidade não for encontrada.
+     */
+    public void enviarMensagem(String idSessao, String nomeComunidade, String mensagem) throws UsuarioNaoCadastradoException, ComunidadeNaoExisteException {
+        mensagemController.enviarMensagem(idSessao,nomeComunidade,mensagem);
+    }
+
+    /**
+     * Delega a leitura da mensagem mais antiga da comunidade na caixa de entrada do usuário.
+     *
+     * @param idSessao O identificador da sessão ativa do usuário.
+     * @return O conteúdo em texto da mensagem.
+     * @throws NaoHaMensagensException       Se a fila de mensagens estiver vazia.
+     * @throws UsuarioNaoCadastradoException Se a sessão for inválida.
+     */
+    public String lerMensagem(String idSessao) throws NaoHaMensagensException, UsuarioNaoCadastradoException {
+        return mensagemController.lerMensagem(idSessao);
+    }
+
+    /**
+     * Delega a adição de um ídolo para o usuário logado.
+     *
+     * @param id    O identificador da sessão ativa.
+     * @param idolo O login do usuário que será marcado como ídolo.
+     * @throws RelacionamentoException       Se tentar adicionar a si mesmo ou se já for fã.
+     * @throws UsuarioNaoCadastradoException Se a sessão for inválida ou o ídolo não existir.
+     * @throws InimigoException              Se o ídolo tiver bloqueado o remetente como inimigo.
+     */
+    public void adicionarIdolo(String id, String idolo) throws RelacionamentoException, UsuarioNaoCadastradoException, InimigoException {
+        relacionamentoController.adicionarIdolo(id, idolo);
+    }
+
+    /**
+     * Verifica se o usuário consultado é fã do ídolo informado.
+     *
+     * @param login O login do fã.
+     * @param idolo O login do ídolo.
+     * @return {@code true} se for fã, {@code false} caso contrário.
+     * @throws UsuarioNaoCadastradoException Se o usuário não existir no sistema.
+     */
+    public boolean ehFa(String login, String idolo) throws UsuarioNaoCadastradoException {
+        return relacionamentoController.ehFa(login, idolo);
+    }
+
+    /**
+     * Delega a busca pela lista de fãs de um usuário específico.
+     *
+     * @param login O login do usuário consultado.
+     * @return Uma {@code String} contendo os fãs.
+     * @throws UsuarioNaoCadastradoException Se o usuário não existir no sistema.
+     */
+    public String getFas(String login) throws UsuarioNaoCadastradoException {
+        return relacionamentoController.getFas(login);
+    }
+
+    /**
+     * Delega a adição de um usuário à lista privada de paqueras do usuário logado.
+     *
+     * @param id      O identificador da sessão ativa.
+     * @param paquera O login do alvo da paquera.
+     * @throws RelacionamentoException       Se tentar paquerar a si mesmo ou se já estiver na lista.
+     * @throws UsuarioNaoCadastradoException Se a sessão for inválida ou o alvo não existir.
+     * @throws InimigoException              Se o alvo tiver bloqueado o remetente como inimigo.
+     */
+    public void adicionarPaquera(String id, String paquera) throws RelacionamentoException, UsuarioNaoCadastradoException, InimigoException {
+        relacionamentoController.adicionarPaquera(id, paquera);
+    }
+
+    /**
+     * Verifica de forma segura se o usuário logado paquera um determinado login.
+     *
+     * @param id      O identificador da sessão ativa do usuário.
+     * @param paquera O login procurado na lista de paqueras.
+     * @return {@code true} se a paquera existir, {@code false} caso contrário.
+     * @throws UsuarioNaoCadastradoException Se a sessão for inválida.
+     */
+    public boolean ehPaquera(String id, String paquera) throws UsuarioNaoCadastradoException {
+        return relacionamentoController.ehPaquera(id, paquera);
+    }
+
+    /**
+     * Delega a busca pela lista privada de paqueras do usuário autenticado.
+     *
+     * @param id O identificador da sessão ativa.
+     * @return Uma {@code String} contendo os paqueras.
+     * @throws UsuarioNaoCadastradoException Se a sessão for inválida.
+     */
+    public String getPaqueras(String id) throws UsuarioNaoCadastradoException {
+        return relacionamentoController.getPaqueras(id);
+    }
+
+    /**
+     * Delega a declaração de um usuário como inimigo.
+     *
+     * @param id      O identificador da sessão ativa.
+     * @param inimigo O login do usuário que será declarado inimigo.
+     * @throws RelacionamentoException       Se tentar declarar a si mesmo como inimigo ou se já estiver na lista.
+     * @throws UsuarioNaoCadastradoException Se a sessão for inválida ou o alvo não existir.
+     * @throws InimigoException              Se o alvo já tiver declarado o remetente como inimigo mutuamente.
+     */
+    public void adicionarInimigo(String id, String inimigo) throws RelacionamentoException, UsuarioNaoCadastradoException, InimigoException {
+        relacionamentoController.adicionarInimigo(id, inimigo);
+    }
+
+    /**
+     * Delega a remoção permanente da conta do usuário logado e executa a limpeza.
+     *
+     * @param idSessao O id da sessão do usuário que solicitou a deleção.
+     * @throws UsuarioNaoCadastradoException Se a sessão for inválida.
+     */
+    public void removerUsuario(String idSessao) throws UsuarioNaoCadastradoException {
+        usuarioController.removerUsuario(idSessao);
     }
 
     /**

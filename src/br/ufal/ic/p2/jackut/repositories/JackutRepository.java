@@ -1,5 +1,6 @@
 package br.ufal.ic.p2.jackut.repositories;
 
+import br.ufal.ic.p2.jackut.models.Comunidade;
 import br.ufal.ic.p2.jackut.models.Usuario;
 
 import java.io.*;
@@ -32,12 +33,19 @@ public class JackutRepository {
     private final Map<String, String> sessoesAtivas;
 
     /**
+     * Mapa em memória que armazena todas as comunidades criadas.
+     * A chave é o nome da comunidade e o valor é a entidade Comunidade correspondente.
+     */
+    private final Map<String, Comunidade> comunidades;
+
+    /**
      * Construtor privado para impedir a criação de instâncias externas via operador {@code new}.
      * Inicializa as estruturas de dados vazias.
      */
     private JackutRepository(){
         this.usuarios = new HashMap<>();
         this.sessoesAtivas = new HashMap<>();
+        this.comunidades = new HashMap<>();
     }
 
     /**
@@ -47,6 +55,7 @@ public class JackutRepository {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("database.dat"))) {
             oos.writeObject(this.usuarios);
             oos.writeObject(this.sessoesAtivas);
+            oos.writeObject(this.comunidades);
         } catch (IOException e) {
             System.err.println("Erro ao salvar os dados: " + e.getMessage());
         }
@@ -64,11 +73,12 @@ public class JackutRepository {
 
             Map<String, Usuario> usuariosSalvos = (Map<String, Usuario>) ois.readObject();
             Map<String, String> sessoesSalvas = (Map<String, String>) ois.readObject();
-
+            Map<String, Comunidade> comunidadesSalvas = (Map<String,Comunidade>) ois.readObject();
             this.zerarSistema();
 
             this.usuarios.putAll(usuariosSalvos);
             this.sessoesAtivas.putAll(sessoesSalvas);
+            this.comunidades.putAll(comunidadesSalvas);
 
         } catch (IOException | ClassNotFoundException e) {
             System.err.println("Erro ao carregar os dados: " + e.getMessage());
@@ -94,6 +104,7 @@ public class JackutRepository {
     public void zerarSistema(){
         this.usuarios.clear();
         this.sessoesAtivas.clear();
+        this.comunidades.clear();
     }
 
     /**
@@ -147,5 +158,69 @@ public class JackutRepository {
      */
     public void adicionarSessao(String idSessao, String login) {
         this.sessoesAtivas.put(idSessao, login);
+    }
+
+    /**
+     * Verifica se uma comunidade com o nome especificado já existe no sistema.
+     *
+     * @param nome O nome da comunidade a ser verificado.
+     * @return {@code true} se a comunidade existir, {@code false} caso contrário.
+     */
+    public boolean existeComunidade(String nome){
+        return this.comunidades.containsKey(nome);
+    }
+
+    /**
+     * Adiciona uma nova comunidade ao repositório de dados.
+     *
+     * @param comunidade O objeto {@code Comunidade} instanciado a ser salvo.
+     */
+    public void adicionarComunidade(Comunidade comunidade){
+        this.comunidades.put(comunidade.getNome(),comunidade);
+    }
+
+    /**
+     * Recupera uma comunidade do repositório com base no seu nome.
+     *
+     * @param nome O nome da comunidade.
+     * @return A instância da {@code Comunidade}, ou {@code null} se não for encontrada.
+     */
+    public Comunidade buscarComunidade(String nome){
+        return this.comunidades.get(nome);
+    }
+
+    /**
+     * Retorna uma coleção com todos os usuários cadastrados no sistema.
+     * @return Uma coleção imutável de usuários.
+     */
+    public java.util.Collection<Usuario> getTodosUsuarios() {
+        return java.util.Collections.unmodifiableCollection(this.usuarios.values());
+    }
+
+    /**
+     * Retorna uma coleção com todas as comunidades cadastradas no sistema.
+     * @return Uma coleção imutável de comunidades.
+     */
+    public java.util.Collection<Comunidade> getTodasComunidades() {
+        return java.util.Collections.unmodifiableCollection(this.comunidades.values());
+    }
+
+    /**
+     * Remove um usuário e suas sessões ativas do repositório central.
+     *
+     * @param login O login do usuário a ser deletado.
+     */
+    public void removerUsuario(String login) {
+        this.usuarios.remove(login);
+        this.sessoesAtivas.values().removeIf(l -> l.equals(login));
+    }
+
+    /**
+     * Remove uma comunidade do repositório central.
+     *
+     * @param nome O nome da comunidade a ser deletada.
+     */
+    public void removerComunidade(String nome) {
+        this.comunidades.remove(nome);
     }
 }
